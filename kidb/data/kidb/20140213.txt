@@ -1,0 +1,123 @@
+이름	그룹	프로필	사용	작업	다시 정의	프로그램	로컬 주소	원격 주소	프로토콜	로컬 포트	원격 포트	권한이 부여된 사용자	권한이 부여된 컴퓨터	권한 있는 로컬 보안 주체	로컬 사용자 소유자	응용 프로그램 패키지	
+DemonUserInfo.exe		도메인	아니요	허용	아니요	C:\Program Files (x86)\DemonUserInfo\DemonUserInfo.exe	모두	모두	UDP	모두	모두	모두	모두	모두	모두	모두	
+DemonUserInfo.exe		도메인	아니요	허용	아니요	C:\Program Files (x86)\DemonUserInfo\DemonUserInfo.exe	모두	모두	TCP	모두	모두	모두	모두	모두	모두	모두	
+DemonUserInfo.exe		공용	예	허용	아니요	C:\Program Files (x86)\DemonUserInfo\DemonUserInfo.exe	모두	모두	UDP	모두	모두	모두	모두	모두	모두	모두	
+DemonUserInfo.exe		공용	예	허용	아니요	C:\Program Files (x86)\DemonUserInfo\DemonUserInfo.exe	모두	모두	TCP	모두	모두	모두	모두	모두	모두	모두	
+FTP_50100		모두	예	허용	아니요	모두	모두	모두	TCP	50100	모두	모두	모두	모두	모두	모두	
+FTP_55000		모두	예	허용	아니요	모두	모두	모두	TCP	55000	모두	모두	모두	모두	모두	모두	
+MSSQL_1433		모두	예	허용	아니요	모두	모두	192.168.1.32, 192.168.1.37, 192.168.1.33	TCP	1433	모두	모두	모두	모두	모두	모두	
+NaverAdminAPISvc.exe		공용	아니요	허용	아니요	C:\Program Files (x86)\naver\NaverCommon\NaverAdminAPISvc.exe	모두	모두	TCP	모두	모두	모두	모두	모두	모두	모두	
+NaverAdminAPISvc.exe		공용	아니요	허용	아니요	C:\Program Files (x86)\naver\NaverCommon\NaverAdminAPISvc.exe	모두	모두	UDP	모두	모두	모두	모두	모두	모두	모두	
+WEB_4500_port_통신		공용	예	허용	아니요	모두	모두	211.104.61.55	TCP	4500	모두	모두	모두	모두	모두	모두	
+WEB_HOGA		모두	아니요	허용	아니요	%USERPROFILE%\Desktop\test\Project1.exe	모두	모두	모두	모두	모두	모두	모두	모두	모두	모두	
+BranchCache 콘텐츠 검색(HTTP-In)	BranchCache - 콘텐츠 검색(HTTP 사용)	모두	아니요	허용	아니요	SYSTEM	모두	모두	TCP	80	모두	모두	모두	모두	모두	모두	
+BranchCache 피어 검색(WSD-In)	BranchCache - 피어 검색(WSD 사용)	모두	아니요	허용	아니요	%systemroot%\system32\svchost.exe	모두	로컬 서브넷	UDP	3702	모두	모두	모두	모두	모두	모두	
+BranchCache 호스트 캐시 서버(HTTP-In)	BranchCache - 호스트 캐시 서버(HTTPS 사용)	모두	아니요	허용	아니요	SYSTEM	모두	모두	TCP	80, 443	모두	모두	모두	모두	모두	모두	
+COM+ 네트워크 액세스(DCOM-In)	COM+ 네트워크 액세스	모두	아니요	허용	아니요	%systemroot%\system32\svchost.exe	모두	모두	TCP	135	모두	모두	모두	모두	모두	모두	
+COM+ 원격 관리(DCOM-In)	COM+ 원격 관리	모두	아니요	허용	아니요	%systemroot%\system32\dllhost.exe	모두	모두	TCP	RPC 동적 포트	모두	모두	모두	모두	모두	모두	
+DTC(Distributed Transaction Coordinator)(RPC)	DTC(Distributed Transaction Coordinator)	모두	아니요	허용	아니요	%SystemRoot%\system32\svchost.exe	모두	모두	TCP	RPC 동적 포트	모두	모두	모두	모두	모두	모두	
+DTC(Distributed Transaction Coordinator)(RPC-EPMAP)	DTC(Distributed Transaction Coordinator)	모두	아니요	허용	아니요	%SystemRoot%\system32\svchost.exe	모두	모두	TCP	RPC 끝점 매퍼	모두	모두	모두	모두	모두	모두	
+DTC(Distributed Transaction Coordinator)(TCP-In)	DTC(Distributed Transaction Coordinator)	모두	아니요	허용	아니요	%SystemRoot%\system32\msdtc.exe	모두	모두	TCP	모두	모두	모두	모두	모두	모두	모두	
+FTP 서버 보안(FTP SSL 트래픽 인)	FTP 서버	도메인	아니요	허용	아니요	%windir%\system32\svchost.exe	모두	모두	TCP	990	모두	모두	모두	모두	모두	모두	
+FTP 서버 보안(FTP SSL 트래픽 인)	FTP 서버	개인	아니요	허용	아니요	%windir%\system32\svchost.exe	모두	모두	TCP	990	모두	모두	모두	모두	모두	모두	
+FTP 서버 보안(FTP SSL 트래픽 인)	FTP 서버	공용	아니요	허용	아니요	%windir%\system32\svchost.exe	모두	모두	TCP	990	모두	모두	모두	모두	모두	모두	
+FTP 서버 수동(FTP 수동 트래픽 인)	FTP 서버	개인	아니요	허용	아니요	C:\Windows\system32\svchost.exe	모두	모두	TCP	1024-65535	모두	모두	모두	모두	모두	모두	
+FTP 서버 수동(FTP 수동 트래픽 인)	FTP 서버	공용	예	허용	아니요	C:\Windows\system32\svchost.exe	모두	모두	TCP	1024-65535	모두	모두	모두	모두	모두	모두	
+FTP 서버 수동(FTP 수동 트래픽 인)	FTP 서버	도메인	아니요	허용	아니요	C:\Windows\system32\svchost.exe	모두	모두	TCP	1024-65535	모두	모두	모두	모두	모두	모두	
+FTP 서버(FTP 트래픽 인)	FTP 서버	개인	아니요	허용	아니요	%windir%\system32\svchost.exe	모두	모두	TCP	21	모두	모두	모두	모두	모두	모두	
+FTP 서버(FTP 트래픽 인)	FTP 서버	도메인	아니요	허용	아니요	%windir%\system32\svchost.exe	모두	모두	TCP	21	모두	모두	모두	모두	모두	모두	
+FTP 서버(FTP 트래픽 인)	FTP 서버	공용	예	허용	아니요	%windir%\system32\svchost.exe	모두	모두	TCP	21	모두	모두	모두	모두	모두	모두	
+iSCSI 서비스(TCP-In)	iSCSI 서비스	모두	아니요	허용	아니요	%SystemRoot%\system32\svchost.exe	모두	모두	TCP	모두	모두	모두	모두	모두	모두	모두	
+메시지 큐 TCP 인바운드	Message Queuing	모두	예	허용	아니요	%systemroot%\system32\mqsvc.exe	모두	모두	TCP	모두	모두	모두	모두	모두	모두	모두	
+메시지 큐 UDP 인바운드	Message Queuing	모두	예	허용	아니요	%systemroot%\system32\mqsvc.exe	모두	모두	UDP	모두	모두	모두	모두	모두	모두	모두	
+Netlogon 서비스 인증(RPC)	Netlogon 서비스	모두	아니요	허용	아니요	%SystemRoot%\System32\lsass.exe	모두	모두	TCP	RPC 동적 포트	모두	모두	모두	모두	모두	모두	
+Netlogon 서비스(NP-In)	Netlogon 서비스	모두	아니요	허용	아니요	System	모두	모두	TCP	445	모두	모두	모두	모두	모두	모두	
+SMBDirect(iWARP-In)를 통한 파일 및 프린터 공유	SMBDirect를 통한 파일 및 프린터 공유	모두	아니요	허용	아니요	System	모두	모두	TCP	5445	모두	모두	모두	모두	모두	모두	
+SNMP 서비스(UDP In)	SNMP Service	도메인	예	허용	아니요	%SystemRoot%\system32\snmp.exe	모두	모두	UDP	161	모두	모두	모두	모두	모두	모두	
+SNMP 서비스(UDP In)	SNMP Service	개인, 공용	예	허용	아니요	%SystemRoot%\system32\snmp.exe	모두	로컬 서브넷	UDP	161	모두	모두	모두	모두	모두	모두	
+SNMP 트랩 서비스(UDP In)	SNMP Trap	도메인	아니요	허용	아니요	%SystemRoot%\system32\snmptrap.exe	모두	모두	UDP	162	모두	모두	모두	모두	모두	모두	
+SNMP 트랩 서비스(UDP In)	SNMP Trap	개인, 공용	아니요	허용	아니요	%SystemRoot%\system32\snmptrap.exe	모두	로컬 서브넷	UDP	162	모두	모두	모두	모두	모두	모두	
+SSTP(Secure Socket Tunneling Protocol)(SSTP-In)	SSTP(Secure Socket Tunneling Protocol)	모두	아니요	허용	아니요	System	모두	모두	TCP	443	모두	모두	모두	모두	모두	모두	
+TPM 가상 스마트 카드 관리(DCOM-In)	TPM 가상 스마트 카드 관리	개인, 공용	아니요	허용	아니요	%SystemRoot%\system32\svchost.exe	모두	로컬 서브넷	TCP	135	모두	모두	모두	모두	모두	모두	
+TPM 가상 스마트 카드 관리(DCOM-In)	TPM 가상 스마트 카드 관리	도메인	아니요	허용	아니요	%SystemRoot%\system32\svchost.exe	모두	모두	TCP	135	모두	모두	모두	모두	모두	모두	
+TPM 가상 스마트 카드 관리(TCP-In)	TPM 가상 스마트 카드 관리	도메인	아니요	허용	아니요	%SystemRoot%\system32\RmtTpmVscMgrSvr.exe	모두	모두	TCP	모두	모두	모두	모두	모두	모두	모두	
+TPM 가상 스마트 카드 관리(TCP-In)	TPM 가상 스마트 카드 관리	개인, 공용	아니요	허용	아니요	%SystemRoot%\system32\RmtTpmVscMgrSvr.exe	모두	로컬 서브넷	TCP	모두	모두	모두	모두	모두	모두	모두	
+Windows 방화벽 원격 관리(RPC)	Windows 방화벽 원격 관리	모두	아니요	허용	아니요	%SystemRoot%\system32\svchost.exe	모두	모두	TCP	RPC 동적 포트	모두	모두	모두	모두	모두	모두	
+Windows 방화벽 원격 관리(RPC-EPMAP)	Windows 방화벽 원격 관리	모두	아니요	허용	아니요	%SystemRoot%\system32\svchost.exe	모두	모두	TCP	RPC 끝점 매퍼	모두	모두	모두	모두	모두	모두	
+SCW 원격 액세스 방화벽 규칙 - Scshost - 끝점 RPC 매퍼	Windows 보안 구성 마법사	모두	아니요	허용	아니요	%systemroot%\system32\scshost.exe	모두	모두	TCP	RPC 끝점 매퍼	모두	모두	모두	모두	모두	모두	
+SCW 원격 액세스 방화벽 규칙 - Scshost - 동적 RPC	Windows 보안 구성 마법사	모두	아니요	허용	아니요	%systemroot%\system32\scshost.exe	모두	모두	TCP	RPC 동적 포트	모두	모두	모두	모두	모두	모두	
+SCW 원격 액세스 방화벽 규칙 - Svchost - TCP	Windows 보안 구성 마법사	모두	아니요	허용	아니요	%systemroot%\system32\svchost.exe	모두	모두	TCP	135	모두	모두	모두	모두	모두	모두	
+Windows 원격 관리(HTTP-In)	Windows 원격 관리	공용	예	허용	아니요	System	모두	로컬 서브넷	TCP	5985	모두	모두	모두	모두	모두	모두	
+Windows 원격 관리(HTTP-In)	Windows 원격 관리	도메인, 개인	예	허용	아니요	System	모두	모두	TCP	5985	모두	모두	모두	모두	모두	모두	
+Windows 원격 관리 - 호환 모드(HTTP-In)	Windows 원격 관리(호환성)	모두	아니요	허용	아니요	System	모두	모두	TCP	80	모두	모두	모두	모두	모두	모두	
+WMI(Windows Management Instrumentation)(ASync-In)	WMI(Windows Management Instrumentation)	모두	아니요	허용	아니요	%systemroot%\system32\wbem\unsecapp.exe	모두	모두	TCP	모두	모두	모두	모두	모두	모두	모두	
+WMI(Windows Management Instrumentation)(DCOM-In)	WMI(Windows Management Instrumentation)	모두	아니요	허용	아니요	%SystemRoot%\system32\svchost.exe	모두	모두	TCP	135	모두	모두	모두	모두	모두	모두	
+WMI(Windows Management Instrumentation)(WMI-In)	WMI(Windows Management Instrumentation)	모두	아니요	허용	아니요	%SystemRoot%\system32\svchost.exe	모두	모두	TCP	모두	모두	모두	모두	모두	모두	모두	
+World Wide Web 서비스(HTTP 트래픽 인)	World Wide Web 서비스(HTTP)	모두	예	허용	아니요	System	모두	모두	TCP	80	모두	모두	모두	모두	모두	모두	
+가상 컴퓨터 모니터링(DCOM-In)	가상 컴퓨터 모니터링	모두	아니요	허용	아니요	%SystemRoot%\system32\svchost.exe	모두	모두	TCP	135	모두	모두	모두	모두	모두	모두	
+가상 컴퓨터 모니터링(NB-Session-In)	가상 컴퓨터 모니터링	모두	아니요	허용	아니요	모두	모두	모두	TCP	139	모두	모두	모두	모두	모두	모두	
+가상 컴퓨터 모니터링(RPC)	가상 컴퓨터 모니터링	모두	아니요	허용	아니요	%SystemRoot%\system32\svchost.exe	모두	모두	TCP	RPC 동적 포트	모두	모두	모두	모두	모두	모두	
+가상 컴퓨터 모니터링(에코 요청 - ICMPv4-In)	가상 컴퓨터 모니터링	모두	아니요	허용	아니요	모두	모두	모두	ICMPv4	모두	모두	모두	모두	모두	모두	모두	
+가상 컴퓨터 모니터링(에코 요청 - ICMPv6-In)	가상 컴퓨터 모니터링	모두	아니요	허용	아니요	모두	모두	모두	ICMPv6	모두	모두	모두	모두	모두	모두	모두	
+네트워크 검색(LLMNR-UDP-In)	네트워크 검색	모두	아니요	허용	아니요	%SystemRoot%\system32\svchost.exe	모두	로컬 서브넷	UDP	5355	모두	모두	모두	모두	모두	모두	
+네트워크 검색(NB-Datagram-In)	네트워크 검색	모두	아니요	허용	아니요	System	모두	모두	UDP	138	모두	모두	모두	모두	모두	모두	
+네트워크 검색(NB-Name-In)	네트워크 검색	모두	아니요	허용	아니요	System	모두	모두	UDP	137	모두	모두	모두	모두	모두	모두	
+네트워크 검색(Pub-WSD-In)	네트워크 검색	모두	아니요	허용	아니요	%SystemRoot%\system32\svchost.exe	모두	로컬 서브넷	UDP	3702	모두	모두	모두	모두	모두	모두	
+네트워크 검색(SSDP-In)	네트워크 검색	모두	아니요	허용	아니요	%SystemRoot%\system32\svchost.exe	모두	로컬 서브넷	UDP	1900	모두	모두	모두	모두	모두	모두	
+네트워크 검색(UPnP-In)	네트워크 검색	모두	아니요	허용	아니요	System	모두	모두	TCP	2869	모두	모두	모두	모두	모두	모두	
+네트워크 검색(WSD Events-In)	네트워크 검색	모두	아니요	허용	아니요	System	모두	모두	TCP	5357	모두	모두	모두	모두	모두	모두	
+네트워크 검색(WSD EventsSecure-In)	네트워크 검색	모두	아니요	허용	아니요	System	모두	모두	TCP	5358	모두	모두	모두	모두	모두	모두	
+네트워크 검색(WSD-In)	네트워크 검색	모두	아니요	허용	아니요	%SystemRoot%\system32\svchost.exe	모두	로컬 서브넷	UDP	3702	모두	모두	모두	모두	모두	모두	
+라우팅 및 원격 액세스(GRE-In)	라우팅 및 원격 액세스	모두	아니요	허용	아니요	System	모두	모두	GRE	모두	모두	모두	모두	모두	모두	모두	
+라우팅 및 원격 액세스(L2TP-In)	라우팅 및 원격 액세스	모두	아니요	허용	아니요	System	모두	모두	UDP	1701	모두	모두	모두	모두	모두	모두	
+라우팅 및 원격 액세스(PPTP-In)	라우팅 및 원격 액세스	모두	아니요	허용	아니요	System	모두	모두	TCP	1723	모두	모두	모두	모두	모두	모두	
+World Wide Web 서비스(HTTPS 트래픽 인)	보안 World Wide Web 서비스(HTTPS)	모두	예	허용	아니요	System	모두	모두	TCP	443	모두	모두	모두	모두	모두	모두	
+성능 로그 및 경고(DCOM-In)	성능 로그 및 경고	개인, 공용	아니요	허용	아니요	%systemroot%\system32\svchost.exe	모두	로컬 서브넷	TCP	135	모두	모두	모두	모두	모두	모두	
+성능 로그 및 경고(DCOM-In)	성능 로그 및 경고	도메인	아니요	허용	아니요	%systemroot%\system32\svchost.exe	모두	모두	TCP	135	모두	모두	모두	모두	모두	모두	
+성능 로그 및 경고(TCP-In)	성능 로그 및 경고	도메인	아니요	허용	아니요	%systemroot%\system32\plasrv.exe	모두	모두	TCP	모두	모두	모두	모두	모두	모두	모두	
+성능 로그 및 경고(TCP-In)	성능 로그 및 경고	개인, 공용	아니요	허용	아니요	%systemroot%\system32\plasrv.exe	모두	로컬 서브넷	TCP	모두	모두	모두	모두	모두	모두	모두	
+원격 데스크톱 - 사용자 모드(TCP-In)	원격 데스크톱	모두	예	허용	아니요	%SystemRoot%\system32\svchost.exe	모두	모두	TCP	3389	모두	모두	모두	모두	모두	모두	
+원격 데스크톱 - 사용자 모드(UDP-In)	원격 데스크톱	모두	예	허용	아니요	%SystemRoot%\system32\svchost.exe	모두	모두	UDP	3389	모두	모두	모두	모두	모두	모두	
+원격 볼륨 관리 - 가상 디스크 서비스 로더(RPC)	원격 볼륨 관리	모두	아니요	허용	아니요	%SystemRoot%\system32\vdsldr.exe	모두	모두	TCP	RPC 동적 포트	모두	모두	모두	모두	모두	모두	
+원격 볼륨 관리 - 가상 디스크 서비스(RPC)	원격 볼륨 관리	모두	아니요	허용	아니요	%SystemRoot%\system32\vds.exe	모두	모두	TCP	RPC 동적 포트	모두	모두	모두	모두	모두	모두	
+원격 볼륨 관리(RPC-EPMAP)	원격 볼륨 관리	모두	아니요	허용	아니요	%SystemRoot%\system32\svchost.exe	모두	모두	TCP	RPC 끝점 매퍼	모두	모두	모두	모두	모두	모두	
+원격 서비스 관리(NP-In)	원격 서비스 관리	모두	아니요	허용	아니요	System	모두	모두	TCP	445	모두	모두	모두	모두	모두	모두	
+원격 서비스 관리(RPC)	원격 서비스 관리	모두	아니요	허용	아니요	%SystemRoot%\system32\services.exe	모두	모두	TCP	RPC 동적 포트	모두	모두	모두	모두	모두	모두	
+원격 서비스 관리(RPC-EPMAP)	원격 서비스 관리	모두	아니요	허용	아니요	%SystemRoot%\system32\svchost.exe	모두	모두	TCP	RPC 끝점 매퍼	모두	모두	모두	모두	모두	모두	
+원격 시스템 종료를 위한 인바운드 규칙(RPC-EP-In)	원격 시스템 종료	모두	아니요	허용	아니요	%systemroot%\system32\wininit.exe	모두	모두	TCP	RPC 끝점 매퍼	모두	모두	모두	모두	모두	모두	
+원격 시스템 종료를 위한 인바운드 규칙(TCP-In)	원격 시스템 종료	모두	아니요	허용	아니요	%systemroot%\system32\wininit.exe	모두	모두	TCP	RPC 동적 포트	모두	모두	모두	모두	모두	모두	
+원격 예약된 작업 관리(RPC)	원격 예약된 작업 관리	모두	아니요	허용	아니요	%SystemRoot%\system32\svchost.exe	모두	모두	TCP	RPC 동적 포트	모두	모두	모두	모두	모두	모두	
+원격 예약된 작업 관리(RPC-EPMAP)	원격 예약된 작업 관리	모두	아니요	허용	아니요	%SystemRoot%\system32\svchost.exe	모두	모두	TCP	RPC 끝점 매퍼	모두	모두	모두	모두	모두	모두	
+원격 이벤트 로그 관리(NP-In)	원격 이벤트 로그 관리	모두	아니요	허용	아니요	System	모두	모두	TCP	445	모두	모두	모두	모두	모두	모두	
+원격 이벤트 로그 관리(RPC)	원격 이벤트 로그 관리	모두	아니요	허용	아니요	%SystemRoot%\system32\svchost.exe	모두	모두	TCP	RPC 동적 포트	모두	모두	모두	모두	모두	모두	
+원격 이벤트 로그 관리(RPC-EPMAP)	원격 이벤트 로그 관리	모두	아니요	허용	아니요	%SystemRoot%\system32\svchost.exe	모두	모두	TCP	RPC 끝점 매퍼	모두	모두	모두	모두	모두	모두	
+키 관리 서비스(TCP-In)	키 관리 서비스	모두	아니요	허용	아니요	%SystemRoot%\system32\sppextcomobj.exe	모두	모두	TCP	1688	모두	모두	모두	모두	모두	모두	
+파일 및 프린터 공유(LLMNR-UDP-In)	파일 및 프린터 공유	모두	아니요	허용	아니요	%SystemRoot%\system32\svchost.exe	모두	로컬 서브넷	UDP	5355	모두	모두	모두	모두	모두	모두	
+파일 및 프린터 공유(NB-Datagram-In)	파일 및 프린터 공유	모두	아니요	허용	아니요	System	모두	모두	UDP	138	모두	모두	모두	모두	모두	모두	
+파일 및 프린터 공유(NB-Name-In)	파일 및 프린터 공유	모두	아니요	허용	아니요	System	모두	모두	UDP	137	모두	모두	모두	모두	모두	모두	
+파일 및 프린터 공유(NB-Session-In)	파일 및 프린터 공유	모두	아니요	허용	아니요	System	모두	모두	TCP	139	모두	모두	모두	모두	모두	모두	
+파일 및 프린터 공유(SMB-In)	파일 및 프린터 공유	모두	아니요	허용	아니요	System	모두	모두	TCP	445	모두	모두	모두	모두	모두	모두	
+파일 및 프린터 공유(스풀러 서비스 - RPC)	파일 및 프린터 공유	모두	아니요	허용	아니요	%SystemRoot%\system32\spoolsv.exe	모두	모두	TCP	RPC 동적 포트	모두	모두	모두	모두	모두	모두	
+파일 및 프린터 공유(스풀러 서비스 - RPC-EPMAP)	파일 및 프린터 공유	모두	아니요	허용	아니요	모두	모두	모두	TCP	RPC 끝점 매퍼	모두	모두	모두	모두	모두	모두	
+파일 및 프린터 공유(에코 요청 - ICMPv4-In)	파일 및 프린터 공유	도메인	예	허용	아니요	모두	모두	모두	ICMPv4	모두	모두	모두	모두	모두	모두	모두	
+파일 및 프린터 공유(에코 요청 - ICMPv4-In)	파일 및 프린터 공유	개인, 공용	예	허용	아니요	모두	모두	모두	ICMPv4	모두	모두	모두	모두	모두	모두	모두	
+파일 및 프린터 공유(에코 요청 - ICMPv6-In)	파일 및 프린터 공유	모두	아니요	허용	아니요	모두	모두	모두	ICMPv6	모두	모두	모두	모두	모두	모두	모두	
+핵심 네트워킹 - DHCP(Dynamic Host Configuration Protocol)(DHCP-In)	핵심 네트워킹	모두	예	허용	아니요	%SystemRoot%\system32\svchost.exe	모두	모두	UDP	68	67	모두	모두	모두	모두	모두	
+핵심 네트워킹 - IGMP(Internet Group Management Protocol )(IGMP-In)	핵심 네트워킹	모두	예	허용	아니요	System	모두	모두	IGMP	모두	모두	모두	모두	모두	모두	모두	
+핵심 네트워킹 - IPHTTPS(TCP-In)	핵심 네트워킹	모두	예	허용	아니요	System	모두	모두	TCP	IPHTTPS	모두	모두	모두	모두	모두	모두	
+핵심 네트워킹 - IPv6(IPv6-In)	핵심 네트워킹	모두	예	허용	아니요	System	모두	모두	IPv6	모두	모두	모두	모두	모두	모두	모두	
+핵심 네트워킹 - IPv6용 DHCP(Dynamic Host Configuration Protocol)(DHCPV6-In)	핵심 네트워킹	모두	예	허용	아니요	%SystemRoot%\system32\svchost.exe	모두	모두	UDP	546	547	모두	모두	모두	모두	모두	
+핵심 네트워킹 - Teredo(UDP-In)	핵심 네트워킹	모두	예	허용	아니요	%SystemRoot%\system32\svchost.exe	모두	모두	UDP	에지 통과	모두	모두	모두	모두	모두	모두	
+핵심 네트워킹 - 네트워크 환경 검색 알림(ICMPv6-In)	핵심 네트워킹	모두	예	허용	아니요	System	모두	모두	ICMPv6	모두	모두	모두	모두	모두	모두	모두	
+핵심 네트워킹 - 네트워크 환경 검색 요청(ICMPv6-In)	핵심 네트워킹	모두	예	허용	아니요	System	모두	모두	ICMPv6	모두	모두	모두	모두	모두	모두	모두	
+핵심 네트워킹 - 대상에 연결할 수 없음 조각화 필요(ICMPv4-In)	핵심 네트워킹	모두	예	허용	아니요	System	모두	모두	ICMPv4	모두	모두	모두	모두	모두	모두	모두	
+핵심 네트워킹 - 대상에 연결할 수 없음(ICMPv6-In)	핵심 네트워킹	모두	예	허용	아니요	System	모두	모두	ICMPv6	모두	모두	모두	모두	모두	모두	모두	
+핵심 네트워킹 - 라우터 알림(ICMPv6-In)	핵심 네트워킹	모두	예	허용	아니요	System	모두	fe80::/64	ICMPv6	모두	모두	모두	모두	모두	모두	모두	
+핵심 네트워킹 - 라우터 요청(ICMPv6-In)	핵심 네트워킹	모두	예	허용	아니요	System	모두	모두	ICMPv6	모두	모두	모두	모두	모두	모두	모두	
+핵심 네트워킹 - 매개 변수 문제(ICMPv6-In)	핵심 네트워킹	모두	예	허용	아니요	System	모두	모두	ICMPv6	모두	모두	모두	모두	모두	모두	모두	
+핵심 네트워킹 - 멀티캐스트 수신기 보고서 v2(ICMPv6-In)	핵심 네트워킹	모두	예	허용	아니요	System	모두	로컬 서브넷	ICMPv6	모두	모두	모두	모두	모두	모두	모두	
+핵심 네트워킹 - 멀티캐스트 수신기 보고서(ICMPv6-In)	핵심 네트워킹	모두	예	허용	아니요	System	모두	로컬 서브넷	ICMPv6	모두	모두	모두	모두	모두	모두	모두	
+핵심 네트워킹 - 멀티캐스트 수신기 완료(ICMPv6-In)	핵심 네트워킹	모두	예	허용	아니요	System	모두	로컬 서브넷	ICMPv6	모두	모두	모두	모두	모두	모두	모두	
+핵심 네트워킹 - 멀티캐스트 수신기 쿼리(ICMPv6-In)	핵심 네트워킹	모두	예	허용	아니요	System	모두	로컬 서브넷	ICMPv6	모두	모두	모두	모두	모두	모두	모두	
+핵심 네트워킹 - 시간 초과됨(ICMPv6-In)	핵심 네트워킹	모두	예	허용	아니요	System	모두	모두	ICMPv6	모두	모두	모두	모두	모두	모두	모두	
+핵심 네트워킹 - 패킷이 너무 큼(ICMPv6-In)	핵심 네트워킹	모두	예	허용	아니요	모두	모두	모두	ICMPv6	모두	모두	모두	모두	모두	모두	모두	
