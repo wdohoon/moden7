@@ -1,0 +1,44 @@
+1. shop, mobile, adm 폴더를 영카트가 설치된 디렉토리에 업로드 (중복되는 파일 있음)
+
+   : 중복/추가 되는 파일목록
+   : /adm/shop_admin/configform.php (중복)
+   : /adm/shop_admin/configformupdate.php (중복)
+   : /adm/shop_admin/orderform.php (중복)
+   : /adm/shop_admin/orderformcartupdate.php (중복)
+
+   : /mobile/shop/nicepay/ (추가) 
+   : /mobile/shop/orderform.sub.php (중복) 
+   : /mobile/shop/orderformupdate.php (중복) 
+   : /mobile/shop/orderinquiryview.php (중복) 
+   : /mobile/shop/personalpayform.sub.php (중복) 
+   : /mobile/shop/personalpayformupdate.php (중복) 
+   : /mobile/shop/personalpayresult.php (중복) 
+   : /mobile/shop/settle_nicepay.inc.php (추가) 
+
+   : /shop/nicepay/ (추가) 
+   : /shop/orderform.sub.php (중복) 
+   : /shop/orderformupdate.php (중복) 
+   : /shop/orderinquiryview.php (중복) 
+   : /shop/personalpayform.sub.php (중복) 
+   : /shop/personalpayformupdate.php (중복) 
+   : /shop/personalpayresult.php (중복)
+   : /shop/settle_nicepay.inc.php (추가) 
+   : /shop/settle_nicepay_common.php (추가) 
+
+  작업된 사이트에 넣을 경우  acefive 라고 주석이 되어있는곳만 적용
+
+
+
+2. 권한설정.
+
+    전체 그냥 777로 셋팅
+
+3. 크롬80이슈로 common.php 에
+   shop_check_is_pay_page() 함수
+   아래 배열 목록에 하단코드 첨부
+
+$mobile_dir.'/'.$shop_dir.'/nicepay/order_approval_form.php',
+
+
+
+
