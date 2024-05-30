@@ -1,0 +1,421 @@
+<?php
+if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
+   
+// 선택옵션으로 인해 셀합치기가 가변적으로 변함
+$colspan = 5;
+
+if ($is_checkbox) $colspan++;
+if ($is_good) $colspan++;
+if ($is_nogood) $colspan++;
+
+//echo $board_skin_url;
+// add_stylesheet('css 구문', 출력순서); 숫자가 작을 수록 먼저 출력됨
+add_stylesheet('<link rel="stylesheet" href="'.$board_skin_url.'/style.css">', 0);
+?>
+
+<?
+//========================================================
+// 페이지 변경시 필요한 소스 시작~!!!!!!!!!!!!!!
+
+function get_paging2($write_pages, $cur_page, $total_page, $url, $add="")
+{
+	global $board_skin_url;
+    $str = "<ul class='pagenation'>";
+    if ($cur_page > 1) {
+        $str .= "<li><a href='".$url."' class='btn'><img src='{$board_skin_url}/img/btn_firstly.gif' alt='처음' /></a></li>";
+        //$str .= "[<a href='" . $url . ($cur_page-1) . "'>이전</a>]";
+    }
+
+    $start_page = ( ( (int)( ($cur_page - 1 ) / $write_pages ) ) * $write_pages ) + 1;
+    $end_page = $start_page + $write_pages - 1;
+
+    if ($end_page >= $total_page) $end_page = $total_page;
+
+    if ($start_page > 1) $str .= "<li><a href='" . $url . ($start_page-1) . "{$add}' class='btn'><img src='{$board_skin_url}/img/btn_prev.gif' alt='이전' /></a></li>";
+
+    if ($total_page > 1) {
+        for ($k=$start_page;$k<=$end_page;$k++) {
+            if ($cur_page != $k)
+                $str .= "<li><a href='$url$k{$add}'><span>$k</span></a></li>";
+            else
+                $str .= "<li class='on'><a href='$url$k{$add}'><b>$k</b></a></li>";
+        }
+    }
+
+    if ($total_page > $end_page) $str .= " <li><a href='" . $url . ($end_page+1) . "{$add}' class='btn'><img src='{$board_skin_url}/img/btn_next.gif' alt='다음으로' /></a></li>";
+
+    if ($cur_page < $total_page) {
+        //$str .= "[<a href='$url" . ($cur_page+1) . "'>다음</a>]";
+        $str .= "<li><a href='$url$total_page{$add}' class='btn'><img src='{$board_skin_url}/img/btn_lastly.gif' alt='마지막으로' /></a></li>";
+    }
+    $str .= "</ul>";
+
+    return $str;
+}
+
+$write_pages = get_paging2($config[cf_write_pages], $page, $total_page, "./board.php?bo_table=$bo_table".$qstr."&page=");
+
+?>
+
+<style>
+/* pagenation */
+.pagenation             {padding:0; font-size:12px; text-align:center; }
+.pagenation li           {display:inline; padding:7px 0; border:1px solid #b6b6b6; margin:0 3px;}
+
+.pagenation li a          {color:#424242; padding:0px 10px;}
+.pagenation li a img      {vertical-align:middle;}
+.pagenation li:hover        {background:#f8f8f8;}
+
+.pagenation li.on          {background:#777777 ; border:1px solid #777777;}
+.pagenation li.on a         {color:#ffffff;}
+
+#stroe_wrap {width:100%; height:475px; background:url("/images/store_bg.jpg") no-repeat; position:relative;}
+.store_sel {width:470px; height:200px; background:url("/images/store_sel_bg.jpg") no-repeat;
+	position:relative; top:105px; left:73px;
+}
+.store_sel01 {position:absolute; width:120px; height:30px; top:98px; left:47px;}
+.store_sel02 {position:absolute; width:170px; height:30px; top:98px; left:170px;}
+.store_sel03 {position:absolute; width:289px; height:24px; top:137px; left:47px;}
+.store_sel04 {position:absolute; width:77px; height:67px; top:98px; left:345px;
+	background:#f8aa1e; color:#fff; border:0; cursor:pointer;
+}
+.stoer_map {position:absolute; right:115px; top:30px}
+
+</style>
+
+<!-- <h2 id="container_title"><?php echo $board['bo_subject'] ?><span class="sound_only"> 목록</span></h2>-->
+
+<div id="stroe_wrap">
+	<div class="store_sel">
+   
+  
+    
+    <script>
+            
+		function fwrite_submits(){
+		//alert (document.fwrite.wr_1.value);
+		location.href ="board.php?bo_table=<?=$bo_table?>&ddd="+document.fwrite.wr_1.value+"&kjh=sss"+"&wr_1="+document.fwrite.wr_1.value+"&wr_2="+document.fwrite.wr_2.value+"&dddd="+document.fwrite.wr_2.value;
+		document.body.scrollTop = document.body.scrollHeight;
+		}
+	
+    </script>
+
+    
+    <form name="fwrite" action="<?=$_SERVER[PHP_SELF]?>" method="post">    
+    
+    <input type="hidden" name="kjh" value="sss" />
+    
+    <input type="hidden" name="bo_table" value="<?php echo $bo_table ?>">
+    
+		<select name="wr_1" id="wr_1" class="store_sel01" onchange="fwrite_submits(this)">
+        
+	        <option value="">선택하세요</option>
+                    
+			<?
+			
+				$sql_mo="SELECT DISTINCT  wr_1 FROM post_k";		  
+		  
+	  
+			  $result_mo = mysql_query($sql_mo);
+			  
+			  $total_record_mo=mysql_num_rows($result_mo);	  
+
+            for($i=0;$i<$total_record_mo;$i++){				
+				
+				
+				$row_mo=mysql_fetch_array($result_mo);				
+				
+			?>
+            
+            <option value="<?=$row_mo[wr_1]?>" <? if($row_mo[wr_1] == $ddd) echo " selected "; ?>><?=$row_mo[wr_1]?></option>
+            
+			<?
+			}
+			?>
+            
+            
+            
+		</select>
+        
+        
+        
+			<select name="wr_2" id="wr_2" class="store_sel02" onchange="fwrite_submits(this)">
+        
+	        <option value="">선택하세요</option>
+                    
+			<?
+			
+			if($ddd){
+				
+			$sql_mo2="SELECT DISTINCT wr_2 FROM post_k where wr_1='$ddd'";
+			$result_mo2 = mysql_query($sql_mo2);
+			  
+		  $total_record_mo2=mysql_num_rows($result_mo2);	   
+			 
+
+            for($i=0;$i<$total_record_mo2;$i++){				
+				
+				
+				$row_mo2=mysql_fetch_array($result_mo2);				
+				
+			?>
+            
+            <option value="<?=$row_mo2[wr_2]?>" <? if(trim($row_mo2[wr_2]) == trim($dddd)) echo " selected "; ?>><?=$row_mo2[wr_2]?></option>
+            
+			<?
+				}
+			}
+			?>
+            
+            
+            
+		</select>
+        
+        
+		<input type="text" class="store_sel03" name="wr_3" />
+        
+        
+		<input type="submit" class="store_sel04" value="검색" />      
+    </form>    
+        
+        
+	</div>
+	<div class="stoer_map">
+		<img src="/images/store_map.jpg" alt="" />
+	</div>
+</div>
+
+
+
+
+<!-- 게시판 목록 시작 { -->
+<div id="bo_list" style="width:<?php echo $width; ?>">
+
+    <!-- 게시판 카테고리 시작 { -->
+    <?php if ($is_category) { ?>
+    <nav id="bo_cate">
+        <h2><?php echo $board['bo_subject'] ?> 카테고리</h2>
+        <ul id="bo_cate_ul">
+            <?php echo $category_option ?>
+        </ul>
+    </nav>
+    <?php } ?>
+    <!-- } 게시판 카테고리 끝 -->
+  
+
+    <!-- 게시판 페이지 정보 및 버튼 시작 { -->
+   <!-- <div class="bo_fx">
+        <div id="bo_list_total">
+            <span>Total <?php echo number_format($total_count) ?>건</span>
+            <?php echo $page ?> 페이지
+        </div>
+
+        <?php if ($rss_href || $write_href) { ?>
+        <ul class="btn_bo_user">
+            <?php if ($rss_href) { ?><li><a href="<?php echo $rss_href ?>" class="btn_b01">RSS</a></li><?php } ?>
+            <?php if ($admin_href) { ?><li><a href="<?php echo $admin_href ?>" class="btn_admin">관리자</a></li><?php } ?>
+            <?php if ($write_href) { ?><li><a href="<?php echo $write_href ?>" class="btn_b02">글쓰기</a></li><?php } ?>
+        </ul>
+        <?php } ?>
+    </div>-->
+    <!-- } 게시판 페이지 정보 및 버튼 끝 -->
+
+    <form name="fboardlist" id="fboardlist" action="./board_list_update.php" onsubmit="return fboardlist_submit(this);" method="post">
+    <input type="hidden" name="bo_table" value="<?php echo $bo_table ?>">
+    <input type="hidden" name="sfl" value="<?php echo $sfl ?>">
+    <input type="hidden" name="stx" value="<?php echo $stx ?>">
+    <input type="hidden" name="spt" value="<?php echo $spt ?>">
+    <input type="hidden" name="sca" value="<?php echo $sca ?>">
+    <input type="hidden" name="page" value="<?php echo $page ?>">
+    <input type="hidden" name="sw" value="">
+
+    <div class="jtbl_head01 jtbl_wrap">
+        <table>
+        <thead>
+        <tr>
+            <th scope="col" class="th_bg01">이미지</th>
+            <th scope="col" class="th_bg01">지역</th>
+            <th scope="col" class="th_bg01">구분</th>
+            <th scope="col" class="th_bg01">지점명</a></th>
+            <th scope="col" class="th_bg01">연락처</a></th>
+            <th scope="col" class="th_bg01">주소</a></th>
+            <th scope="col" class="th_bg01">상세보기</a></th>
+        </tr>
+		
+        </thead> 
+        <tbody>
+        <?php
+        for ($i=0; $i<count($list); $i++) {
+         ?>
+        <tr class="<?php if ($list[$i]['is_notice']) echo "bo_notice"; ?>">
+            <td class="td_num">
+            <?php
+            if ($list[$i]['is_notice']) // 공지사항
+                echo '<strong>공지</strong>';
+            else if ($wr_id == $list[$i]['wr_id'])
+                echo "<span class=\"bo_current\">열람중</span>";
+            else
+                echo $list[$i]['num'];
+             ?>
+            </td>
+            
+            <td class="td_subject">
+                <?php
+                echo $list[$i]['icon_reply'];
+                if ($is_category && $list[$i]['ca_name']) {
+                 ?>
+                <a href="<?php echo $list[$i]['ca_name_href'] ?>" class="bo_cate_link"><?php echo $list[$i]['ca_name'] ?></a>
+                <?php } ?>
+
+                <a href="<?php echo $list[$i]['href'] ?>">
+                    <?php echo $list[$i]['subject'] ?>
+                    <?php if ($list[$i]['comment_cnt']) { ?><span class="sound_only">댓글</span>[<?=$list[$i]['comment_cnt']; ?>]<span class="sound_only">개</span><?php } ?>
+                </a>
+
+                <?php
+                // if ($list[$i]['link']['count']) { echo '['.$list[$i]['link']['count']}.']'; }
+                // if ($list[$i]['file']['count']) { echo '<'.$list[$i]['file']['count'].'>'; }
+
+              /*  if (isset($list[$i]['icon_new'])) echo $list[$i]['icon_new'];
+                if (isset($list[$i]['icon_hot'])) echo $list[$i]['icon_hot'];
+                if (isset($list[$i]['icon_file'])) echo $list[$i]['icon_file'];
+                if (isset($list[$i]['icon_link'])) echo $list[$i]['icon_link'];
+                if (isset($list[$i]['icon_secret'])) echo $list[$i]['icon_secret'];*/
+
+                 ?>
+            </td>
+            <td class="td_name sv_use"><?php echo $list[$i]['wr_1'] ?></td>
+            <td class="td_date"><?php echo $list[$i]['wr_2'] ?></td>
+            <td class="td_hit"><?php echo $list[$i]['wr_3'] ?></td>
+			<td class="td_hit"><?php echo $list[$i]['wr_4'] ?></td>
+			<td class="td_hit"><?php echo $list[$i]['wr_5'] ?></td>
+        </tr>
+        <?php } ?>
+        <?php if (count($list) == 0) { echo '<tr><td colspan="8" class="empty_table">게시물이 없습니다.</td></tr>'; } ?>
+        </tbody>
+        </table>
+    </div>
+
+    <?php if ($list_href || $is_checkbox || $write_href) { ?>
+    <div class="bo_fx">
+        <?php if ($is_checkbox && $is_admin == 'super') { ?>
+        <ul class="btn_bo_adm">
+            <li><span class="jbutton large black"><input type="submit" name="btn_submit" value="선택삭제" onclick="document.pressed=this.value"></span></li>
+            <li><span class="jbutton large black"><input type="submit" name="btn_submit" value="선택복사" onclick="document.pressed=this.value"></span></li>
+            <li><span class="jbutton large black"><input type="submit" name="btn_submit" value="선택이동" onclick="document.pressed=this.value"></span></li>
+        </ul>
+        <?php } ?>
+
+        <?php if ($list_href || $write_href) { ?>
+        <ul class="btn_bo_user">
+        	 <?php if ($admin_href) { ?><li><span class="jbutton large black"><a href="<?php echo $admin_href ?>">관리자</a></span></li><?php } ?>
+            <?php if ($list_href) { ?><li><span class="jbutton large black"><a href="<?php echo $list_href ?>" class="btn_b01">목록</a></span></li><?php } ?>
+            <?php if ($write_href) { ?><li><span class="jbutton large black"><a href="<?php echo $write_href ?>" class="width_j">지점등록</a></span></li><?php } ?>
+        </ul>
+        <?php } ?>
+    </div>
+    <?php } ?>
+    </form>
+</div>
+
+<?php if($is_checkbox) { ?>
+<noscript>
+<p>자바스크립트를 사용하지 않는 경우<br>별도의 확인 절차 없이 바로 선택삭제 처리하므로 주의하시기 바랍니다.</p>
+</noscript>
+<?php } ?>
+
+<!-- 페이지 -->
+<?php echo $write_pages;  ?>
+
+  
+    <!-- 게시판 검색 시작 { -->
+<fieldset id="bo_sch">
+    <legend>게시물 검색</legend>
+
+    <div>
+    <form name="fsearch" method="get">
+    <input type="hidden" name="bo_table" value="<?php echo $bo_table ?>">
+    <input type="hidden" name="sca" value="<?php echo $sca ?>">
+    <input type="hidden" name="sop" value="and">
+    <label for="sfl" class="sound_only">검색대상</label>
+    <select name="sfl" id="sfl">
+        <option value="wr_subject"<?php echo get_selected($sfl, 'wr_subject', true); ?>>제목</option>
+        <option value="wr_content"<?php echo get_selected($sfl, 'wr_content'); ?>>내용</option>
+        <option value="wr_subject||wr_content"<?php echo get_selected($sfl, 'wr_subject||wr_content'); ?>>제목+내용</option>
+        <option value="mb_id,1"<?php echo get_selected($sfl, 'mb_id,1'); ?>>회원아이디</option>
+        <option value="mb_id,0"<?php echo get_selected($sfl, 'mb_id,0'); ?>>회원아이디(코)</option>
+        <option value="wr_name,1"<?php echo get_selected($sfl, 'wr_name,1'); ?>>글쓴이</option>
+        <option value="wr_name,0"<?php echo get_selected($sfl, 'wr_name,0'); ?>>글쓴이(코)</option>
+    </select>
+    <label for="stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
+    <input type="text" name="stx" value="<?php echo stripslashes($stx) ?>" required id="stx" class="frm_input" size="15" maxlength="15">
+    <span class="jbutton large black" style="margin-left:1px;  vertical-align:bottom;"><input type="submit" class="width_j2" id="btn_submit" value="검색"></span>
+    </form>
+    </div>
+</fieldset>
+<!-- } 게시판 검색 끝 -->
+
+<?php if ($is_checkbox) { ?>
+<script>
+function all_checked(sw) {
+    var f = document.fboardlist;
+
+    for (var i=0; i<f.length; i++) {
+        if (f.elements[i].name == "chk_wr_id[]")
+            f.elements[i].checked = sw;
+    }
+}
+
+function fboardlist_submit(f) {
+    var chk_count = 0;
+
+    for (var i=0; i<f.length; i++) {
+        if (f.elements[i].name == "chk_wr_id[]" && f.elements[i].checked)
+            chk_count++;
+    }
+
+    if (!chk_count) {
+        alert(document.pressed + "할 게시물을 하나 이상 선택하세요.");
+        return false;
+    }
+
+    if(document.pressed == "선택복사") {
+        select_copy("copy");
+        return;
+    }
+
+    if(document.pressed == "선택이동") {
+        select_copy("move");
+        return;
+    }
+
+    if(document.pressed == "선택삭제") {
+        if (!confirm("선택한 게시물을 정말 삭제하시겠습니까?\n\n한번 삭제한 자료는 복구할 수 없습니다\n\n답변글이 있는 게시글을 선택하신 경우\n답변글도 선택하셔야 게시글이 삭제됩니다."))
+            return false;
+
+        f.removeAttribute("target");
+        f.action = "./board_list_update.php";
+    }
+
+    return true;
+}
+
+// 선택한 게시물 복사 및 이동
+function select_copy(sw) {
+    var f = document.fboardlist;
+
+    if (sw == "copy")
+        str = "복사";
+    else
+        str = "이동";
+
+    var sub_win = window.open("", "move", "left=50, top=50, width=500, height=550, scrollbars=1");
+
+    f.sw.value = sw;
+    f.target = "move";
+    f.action = "./move.php";
+    f.submit();
+}
+</script>
+<?php } ?>
+<!-- } 게시판 목록 끝 -->

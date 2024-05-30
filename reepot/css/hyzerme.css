@@ -1,0 +1,36 @@
+@charset 'utf-8';
+
+.brand-tab .bt-item a {
+	display: inline-block;
+    position: relative;
+	cursor: pointer;
+}
+.brand-tab .bt-item.on a:after {
+	content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: -3px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #89A5CB;
+}
+.brand-tab .bt-item.on {
+    color: #89A5CB;
+}
+
+.container .tabcont {
+	background: #fff;
+	display: none;
+}
+.container .tabcont.on {
+	display: block;
+}
+.container .tabcont > figure {
+	max-width: 1920px;
+	width: 100%;
+	margin: 0 auto;
+}
+.container .tabcont > figure > img {
+	width: 100%;
+}
