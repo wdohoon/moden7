@@ -1,0 +1,3 @@
+resultCode:1082|resultMsg:한도 초과|authDate:240326200141|authCode:|mid:ilooda001m|tid:ilooda001m01012403262001415705|moid:2024032619571753|amt:900000|
+resultCode:1091|resultMsg:가족 한도 초과|authDate:240326200441|authCode:|mid:ilooda001m|tid:ilooda001m01012403262004414087|moid:2024032620014392|amt:900000|
+resultCode:3001|resultMsg:카드 결제 성공|authDate:240326200521|authCode:57981730|mid:ilooda001m|tid:ilooda001m01012403262005211278|moid:2024032620044280|amt:900000|

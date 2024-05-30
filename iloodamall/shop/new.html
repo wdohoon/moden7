@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>비디오 목록 예제</title>
+    <style>
+        .tab-content, .sub-tab-content {
+            display: none;
+        }
+        .tab-content.active, .sub-tab-content.active {
+            display: block;
+        }
+        #videoPopup {
+            display: none;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        #videoContainer {
+            position: relative;
+            width: 800px;
+            height: 600px;
+        }
+        video {
+            width: 100%;
+            height: 100%;
+        }
+        #closeButton {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            cursor: pointer;
+            font-size: 20px;
+            color: white;
+        }
+        #thanksText {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 24px;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+        }
+        .tab-links, .sub-tab-links {
+            cursor: pointer;
+            padding: 10px;
+            border: 1px solid #ccc;
+            display: inline-block;
+            background-color: #f0f0f0;
+        }
+        .tab-links.active, .sub-tab-links.active {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+
+<div>
+    <div class="tab-links" data-tab="tab1">탭1</div>
+    <div class="tab-links" data-tab="tab2">탭2</div>
+</div>
+
+<div id="tab1" class="tab-content">
+    <div class="sub-tab-links" data-tab="tab1-1">탭1-1</div>
+    <div class="sub-tab-links" data-tab="tab1-2">탭1-2</div>
+
+    <div id="tab1-1" class="sub-tab-content">
+        <button class="videoBtn" data-video="1-1">비디오1-1</button>
+    </div>
+    <div id="tab1-2" class="sub-tab-content">
+        <button class="videoBtn" data-video="1-2">비디오1-2</button>
+    </div>
+</div>
+
+<div id="tab2" class="tab-content">
+    <button class="videoBtn" data-video="5">비디오5</button>
+    <button class="videoBtn" data-video="6">비디오6</button>
+</div>
+
+<div id="videoPopup">
+    <div id="videoContainer">
+        <div id="closeButton">닫기</div>
+        <div id="thanksText">감사합니다</div>
+        <video id="videoPlayer" controls>
+            <source src="" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', (event) => {
+    // 메인 탭 기능
+    document.querySelectorAll('.tab-links').forEach(tab => {
+        tab.addEventListener('click', function() {
+            document.querySelectorAll('.tab-content').forEach(tc => {
+                tc.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-links').forEach(t => {
+                t.classList.remove('active');
+            });
+            document.getElementById(this.getAttribute('data-tab')).classList.add('active');
+            this.classList.add('active');
+        });
+    });
+
+    // 서브 탭 기능
+    document.querySelectorAll('.sub-tab-links').forEach(subTab => {
+        subTab.addEventListener('click', function() {
+            document.querySelectorAll('.sub-tab-content').forEach(stc => {
+                stc.classList.remove('active');
+            });
+            document.querySelectorAll('.sub-tab-links').forEach(st => {
+                st.classList.remove('active');
+            });
+            document.getElementById(this.getAttribute('data-tab')).classList.add('active');
+            this.classList.add('active');
+        });
+    });
+
+    // 비디오 경로 설정
+    const videoPaths = {
+        1: '',
+		
+		"1-1": 'https://ilooda.s3.ap-northeast-2.amazonaws.com/%EC%98%81%EC%83%81(%EA%B3%A0%ED%95%B4%EC%83%81)/1.+reepot/%EC%8A%A4%ED%86%A0%EB%A6%AC/%EB%A6%AC%ED%8C%9F%EC%9D%84+%EC%95%8C%EA%B2%8C+%EB%90%98%EB%8A%94+%EC%B2%AB+%EA%B1%B8%EC%9D%8C+reepot+guardians+%EC%86%8C%EA%B0%9C+%EC%98%81%EC%83%81.mp4',
+        "1-2": 'https://example.com/video1-2.mp4',
+
+        2: 'https://example.com/video2.mp4',
+        3: 'https://example.com/video3.mp4',
+        4: 'https://example.com/video4.mp4',
+        5: 'https://example.com/video5.mp4',
+        6: 'https://ilooda.s3.ap-northeast-2.amazonaws.com/%EC%98%81%EC%83%81(%EA%B3%A0%ED%95%B4%EC%83%81)/1.+reepot/%EC%8A%A4%ED%86%A0%EB%A6%AC/%EC%83%88%EB%A1%9C%EC%9A%B4+%EA%B8%B0%EC%88%A0%2C+%EC%83%88%EB%A1%9C%EC%9A%B4+%EA%B2%B0%EA%B3%BC%EB%AC%BC+reepot+Interview.mp4',
+    };
+	
+	
+
+    document.querySelectorAll('.videoBtn').forEach(button => {
+        button.addEventListener('click', function() {
+            const videoNum = this.getAttribute('data-video');
+            const videoSrc = videoPaths[videoNum];
+            const videoPlayer = document.getElementById('videoPlayer');
+            videoPlayer.src = videoSrc;
+            videoPlayer.play();
+            document.getElementById('videoPopup').style.display = 'flex';
+        });
+    });
+
+    document.getElementById('closeButton').addEventListener('click', function() {
+        const videoPlayer = document.getElementById('videoPlayer');
+        videoPlayer.pause();
+        videoPlayer.src = "";
+        document.getElementById('videoPopup').style.display = 'none';
+    });
+
+    // 기본 탭 활성화
+    document.querySelector('.tab-links').click();
+    document.querySelector('.sub-tab-links').click(); // 첫 번째 서브 탭 활성화
+});
+</script>
+
+</body>
+</html>

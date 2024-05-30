@@ -1,0 +1,732 @@
+<?php
+include_once('./_common.php');
+
+if (!$is_member){
+    goto_url(G5_BBS_URL."/login.php?url=".urlencode(G5_SHOP_URL."/genuine.php"));
+}
+
+if (G5_IS_MOBILE) {
+    include_once(G5_MSHOP_PATH.'/genuine.php');
+    return;
+}
+
+//define("_INDEX_", TRUE);
+
+include_once(G5_SHOP_PATH.'/shop.head.php');
+
+?>
+
+<style>
+body{
+	overflow-x:hidden;
+}
+#wrapper {background: #fff;}
+#container {width:100%;max-width:1920px;}
+#container .is_index {margin-left:0;}
+#container .shop-content {padding:0;}
+
+/* sub_w */
+.sub_w {}
+.s_inner {width:1600px;margin:0 auto;}
+.s_inner::after {content:"";display:block;clear:both;}
+
+/* common */
+.left {float:left;}
+.right {float:right;}
+
+.sub_div {}
+.sub_title {color:#b1b4b9; font-size: 48px;font-weight: 900;text-align: center; padding:100px 0 50px;}
+
+#form_wrap {padding:120px 0px 100px;}
+#form_wrap .form_desc {font-size: 30px;font-weight: 700; line-height: 48px;text-align: center;word-break:keep-all;}
+#form_wrap .alertmsg {font-size: 20px;font-weight: 400; line-height: 48px;text-align: center;word-break:keep-all; margin-top: 40px;	}
+#form_wrap form {width:1400px; margin:80px auto 0px;}
+#form_wrap form .ev_btn {margin-bottom: 80px;border:solid 2px #000; padding: 100px;}
+#form_wrap form .ev_btn div { width:100%; display: flex;text-align:left;}
+#form_wrap form .ev_btn div input{padding: 5px 0; text-align: center;-webkit-transition: none;height: 52px;}
+
+.fd{position:relative; display: flex; margin:0 auto; gap:20px; justify-content: center;}
+.fd h5{width: 17%; margin-bottom: 10px;}
+.fd label{display: block; padding:5px 0; border-radius:40px; text-align:center; border: 1px solid #333; color: #333; cursor:pointer; font-size: 20px; font-weight:400; font-family: 'NanumSquareNeo';}
+.fd input[type='checkbox']:checked+label {background: #333; color:white; }
+.fd .inputtext{/* visibility:hidden; */ font-size:18px;}
+.fd .inputtext.onn{visibility:visible;}
+.new_sch_btn01{justify-content:flex-end;}
+.inputt{display: none;}
+
+
+#form_wrap form input#btn_submit {width: 200px;height: 60px;background:#000;border:none;border-radius:0;color:#fff;cursor:pointer;font-size: 20px;font-weight: 700;margin:0 auto;display: block;padding-left:0;}
+
+.sub_tit {text-align: center;font-size: 30px;font-weight: 700;margin-bottom:25px;}
+.sub_div ul {background:#f1f1f1;padding:100px 0px;text-align: center;}
+.sub_div ul:after {content:"";display:block;clear:both;}
+.sub_div ul li {text-align: center;display:inline-block;width: 280px;height: 280px;border-radius:50%;background:#fff;padding:50px 0;font-family: 'NanumSquare', sans-serif;margin:0 10px;}
+.sub_div ul li .num {font-size: 60px;font-weight: 400;line-height:1.2em;}
+.sub_div ul li .desc {font-size: 20px;font-weight: 700;line-height: 33px;}
+
+
+@media (max-width: 1760px)  {
+#wrapper {background: #fff;}
+#container {width:100%;max-width:100%;}
+#container .is_index {margin-left:0;}
+/* sub_w */
+.sub_w {}
+.s_inner {width:90.9091vw;margin:0 auto;}
+.s_inner::after {clear:both;}
+
+/* common */
+.left {}
+.right {}
+
+.sub_div {}
+.sub_title {font-size: 2.7273vw;padding:5.6818vw 0 2.8409vw;}
+
+#form_wrap {padding:6.8182vw 0.0000vw 5.6818vw;}
+#form_wrap .form_desc {font-size: 1.7045vw; line-height: 2.7273vw;word-break:keep-all;}
+#form_wrap .alertmsg {font-size: 1.1364vw; line-height: 2.7273vw;word-break:keep-all; margin-top: 2.2727vw;	}
+#form_wrap form {width:79.5455vw; margin:4.5455vw auto 0.0000vw;}
+#form_wrap form .ev_btn {margin-bottom: 4.5455vw;}
+#form_wrap form .ev_btn div { width:100%;}
+#form_wrap form .ev_btn div input{ padding: 0.2841vw 0;-webkit-transition: none;}
+
+.fd{  flex-wrap:wrap; margin:0 auto; gap:1.1364vw; justify-content: center}
+.fd h5{width: 17%; margin-bottom: 0.5682vw;}
+.fd label{ padding:0.2841vw 0; border-radius:2.2727vw;  border: 0.0568vw solid #333;  cursor:pointer; font-size: 1.1364vw; }
+.fd input[type='checkbox']:checked+label {background: #333;  }
+.fd .inputtext{ font-size:1.0227vw;}
+.fd .inputtext.onn{visibility:visible;}
+.new_sch_btn01{justify-}
+.inputt{}
+
+#form_wrap form input#btn_submit {width: 11.3636vw;height: 3.4091vw;background:#000;border:none;border-radius:0;cursor:pointer;font-size: 1.1364vw;margin:0 auto;padding-left:0;}
+
+.sub_tit {font-size: 1.7045vw;margin-bottom:1.4205vw;}
+.sub_div ul {background:#f1f1f1;padding:5.6818vw 0.0000vw;}
+.sub_div ul:after {clear:both;}
+.sub_div ul li {width: 15.9091vw;height: 15.9091vw;border-radius:50%;background:#fff;padding:2.8409vw 0;font-family: 'NanumSquare', sans-serif;margin:0 0.5682vw;}
+.sub_div ul li .num {font-size: 3.4091vw;line-height:1.2em;}
+.sub_div ul li .desc {font-size: 1.1364vw;line-height: 1.8750vw;}
+
+}
+
+@media (max-width: 1600px)  {
+#wrapper {background: #fff;}
+#container {width:100%;}
+#container .is_index {margin-left:0;}
+
+/* sub_w */
+.sub_w {}
+.s_inner {width:100.0000%;margin:0 auto;}
+.s_inner::after {clear:both;}
+
+/* common */
+.left {}
+.right {}
+
+.sub_div {}
+.sub_title {font-size: 3.0000vw;padding:6.2500vw 0 3.1250vw;}
+
+#form_wrap {padding:7.5000vw 0.0000vw 6.2500vw;}
+#form_wrap .form_desc {font-size: 1.8750vw; line-height: 3.0000vw;word-break:keep-all;}
+#form_wrap .alertmsg {font-size: 1.2500vw; line-height: 3.0000vw;word-break:keep-all; margin-top: 2.5000vw;	}
+#form_wrap form {width:87.5000vw; margin:5.0000vw auto 0.0000vw;}
+#form_wrap form .ev_btn {margin-bottom: 5.0000vw;}
+#form_wrap form .ev_btn div { width:100%;}
+#form_wrap form .ev_btn div input{padding: 0.3125vw 0; -webkit-transition: none;}
+
+.fd{  flex-wrap:wrap; margin:0 auto; gap:1.2500vw; justify-content: center}
+.fd h5{width: 17%; margin-bottom: 0.6250vw;}
+.fd label{ padding:0.3125vw 0; border-radius:2.5000vw;  border: 0.0625vw solid #333;  cursor:pointer; font-size: 1.2500vw; }
+.fd input[type='checkbox']:checked+label {background: #333;  }
+.fd .inputtext{font-size:1.1250vw;}
+.fd .inputtext.onn{visibility:visible;}
+.new_sch_btn01{justify-}
+.inputt{}
+
+#form_wrap form input#btn_submit {width: 12.5000vw;height: 3.7500vw;background:#000;border:none;border-radius:0;cursor:pointer;font-size: 1.2500vw;margin:0 auto;padding-left:0;}
+
+.sub_tit {font-size: 1.8750vw;margin-bottom:1.5625vw;}
+.sub_div ul {background:#f1f1f1;padding:6.2500vw 0.0000vw;}
+.sub_div ul:after {clear:both;}
+.sub_div ul li {width: 17.5000vw;height: 17.5000vw;border-radius:50%;background:#fff;padding:3.1250vw 0;font-family: 'NanumSquare', sans-serif;margin:0 0.6250vw;}
+.sub_div ul li .num {font-size: 3.7500vw;line-height:1.2em;}
+.sub_div ul li .desc {font-size: 1.2500vw;line-height: 2.0625vw;}
+
+}
+
+@media (max-width: 1400px)  {
+
+#wrapper {background: #fff;}
+#container {width:100%;}
+#container .is_index {margin-left:0;}
+
+/* sub_w */
+.sub_w {}
+.s_inner {width:100%;margin:0 auto;}
+.s_inner::after {clear:both;}
+
+/* common */
+.left {}
+.right {}
+
+.sub_div {}
+.sub_title {font-size: 3.4286vw;padding:7.1429vw 0 3.5714vw;}
+
+
+#form_wrap {padding:8.5714vw 0.0000vw 7.1429vw;}
+#form_wrap .form_desc {font-size: 2.1429vw; line-height: 3.4286vw;word-break:keep-all;}
+#form_wrap .alertmsg {font-size: 1.4286vw; line-height: 3.4286vw;word-break:keep-all; margin-top: 2.8571vw;	}
+#form_wrap form {width:100.0000%; margin:5.7143vw auto 0.0000vw;}
+#form_wrap form .ev_btn {margin-bottom: 5.7143vw;}
+#form_wrap form .ev_btn div { width:100%;}
+#form_wrap form .ev_btn div input{padding: 0.3571vw 0; -webkit-transition: none;}
+
+.fd{  flex-wrap:wrap; margin:0 auto; gap:1.4286vw; justify-content: center}
+.fd h5{width: 17%; margin-bottom: 0.7143vw;}
+.fd label{ padding:0.3571vw 0; border-radius:2.8571vw;  border: 0.0714vw solid #333;  cursor:pointer; font-size: 1.4286vw; }
+.fd input[type='checkbox']:checked+label {background: #333;  }
+.fd .inputtext{ font-size:1.2857vw;}
+.fd .inputtext.onn{visibility:visible;}
+.new_sch_btn01{justify-}
+.inputt{}
+
+#form_wrap form input#btn_submit {width: 14.2857vw;height: 4.2857vw;background:#000;border:none;border-radius:0;cursor:pointer;font-size: 1.4286vw;margin:0 auto;padding-left:0;}
+
+.sub_tit {font-size: 2.1429vw;margin-bottom:1.7857vw;}
+.sub_div ul {background:#f1f1f1;padding:7.1429vw 0.0000vw;}
+.sub_div ul:after {clear:both;}
+.sub_div ul li {width: 20.0000vw;height: 20.0000vw;border-radius:50%;background:#fff;padding:3.5714vw 0;font-family: 'NanumSquare', sans-serif;margin:0 0.7143vw;}
+.sub_div ul li .num {font-size: 4.2857vw;line-height:1.2em;}
+.sub_div ul li .desc {font-size: 1.4286vw;line-height: 2.3571vw;}
+
+}
+
+@media (max-width: 1024px)  {
+
+#wrapper {background: #fff;}
+#container {width:100%;}
+#container .is_index {margin-left:0;}
+
+/* sub_w */
+.sub_w {}
+.s_inner {width:100%;margin:0 auto;}
+.s_inner::after {clear:both;}
+
+/* common */
+.left {}
+.right {}
+
+.sub_div {}
+.sub_title {font-size: 4.6875vw;padding:9.7656vw 0 4.8828vw;}
+
+#form_wrap {padding:11.7188vw 0.0000vw 9.7656vw;}
+#form_wrap .form_desc {font-size: 2.9297vw; line-height: 4.6875vw;word-break:keep-all;}
+#form_wrap .alertmsg {font-size: 1.9531vw; line-height: 4.6875vw;word-break:keep-all; margin-top: 3.9063vw;	}
+#form_wrap form {width:100%; margin:7.8125vw auto 0.0000vw;}
+#form_wrap form .ev_btn {margin-bottom: 7.8125vw;}
+#form_wrap form .ev_btn div { width:100%;}
+#form_wrap form .ev_btn div input{padding: 0.4883vw 0;-webkit-transition: none;}
+
+.fd{  flex-wrap:wrap; margin:0 auto; gap:1.9531vw; justify-content: center}
+.fd h5{width: 17%; margin-bottom: 0.9766vw;}
+.fd label{ padding:0.4883vw 0; border-radius:3.9063vw;  border: 0.0977vw solid #333;  cursor:pointer; font-size: 1.9531vw; }
+.fd input[type='checkbox']:checked+label {background: #333;  }
+.fd .inputtext{ font-size:1.7578vw;}
+.fd .inputtext.onn{visibility:visible;}
+.new_sch_btn01{}
+.inputt{}
+
+#form_wrap form input#btn_submit {width: 19.5313vw;height: 5.8594vw;background:#000;border:none;border-radius:0;cursor:pointer;font-size: 1.9531vw;margin:0 auto;padding-left:0;}
+
+.sub_tit {font-size: 2.9297vw;margin-bottom:2.4414vw;}
+.sub_div ul {background:#f1f1f1;padding:9.7656vw 0.0000vw;}
+.sub_div ul:after {clear:both;}
+.sub_div ul li {width: 27.3438vw;height: 27.3438vw;border-radius:50%;background:#fff;padding:4.8828vw 0;font-family: 'NanumSquare', sans-serif;margin:0 0.9766vw;}
+.sub_div ul li .num {font-size: 5.8594vw;line-height:1.2em;}
+.sub_div ul li .desc {font-size: 1.9531vw;line-height: 3.2227vw;}
+
+}
+
+@media (max-width: 768px)  {
+.custom-select-trigger{
+	font-size: 2.7vw !important;
+	padding: 0 2.5417vw 0 2.2552vw;
+}
+#form_wrap form .ev_btn{
+	padding:13.0208vw
+}
+#wrapper {background: #fff;}
+#container {width:100%;}
+#container .is_index {margin-left:0;}
+
+/* sub_w */
+.sub_w {}
+.s_inner {width:100%;margin:0 auto;padding: 0 5.2083vw;}
+.s_inner::after {clear:both;}
+
+/* common */
+.left {}
+.right {}
+
+.sub_div {}
+.sub_title {font-size: 6.2500vw;padding:13.0208vw 0 6.5104vw;}
+
+#form_wrap {padding:15.6250vw 0.0000vw 13.0208vw;}
+#form_wrap .form_desc {font-size: 3.9063vw; line-height: 6.2500vw;word-break:keep-all;}
+#form_wrap .alertmsg {font-size: 2.6042vw; line-height: 6.2500vw;word-break:keep-all; margin-top: 5.2083vw;	}
+#form_wrap form {width:100%; margin:10.4167vw auto 0.0000vw;}
+#form_wrap form .ev_btn {margin-bottom: 10.4167vw;}
+#form_wrap form .ev_btn div { width:100%;}
+#form_wrap form .ev_btn div input{padding: 0.6510vw 0; -webkit-transition: none;}
+
+.fd{  flex-wrap:wrap; margin:0 auto; gap:2.6042vw; justify-content: center}
+.fd h5{width: 22%; margin-bottom: 0vw;}
+.fd label{ padding:0.6510vw 0; border-radius:5.2083vw;  border: 0.1302vw solid #333;  cursor:pointer; font-size: 2.6042vw; }
+.fd input[type='checkbox']:checked+label {background: #333;  }
+.fd .inputtext{ font-size:2.3438vw;}
+.fd .inputtext.onn{visibility:visible;}
+.new_sch_btn01{justify-}
+.inputt{}
+
+#form_wrap form input#btn_submit {width: 26.0417vw;height: 7.8125vw;background:#000;border:none;border-radius:0;cursor:pointer;font-size: 2.6042vw;margin:0 auto;padding-left:0;}
+
+.sub_tit {font-size: 3.6458vw;margin-bottom:3.2552vw;}
+.sub_div ul {background:#f1f1f1;padding:13.0208vw 0.0000vw;}
+.sub_div ul:after {clear:both;}
+.sub_div ul li {width: 36.4583vw;height: 36.4583vw;border-radius:50%;background:#fff;padding:6.5104vw 0;font-family: 'NanumSquare', sans-serif;margin:0 1.3021vw 3.9063vw;}
+.sub_div ul li .num {font-size: 6.7708vw;line-height:1.2em;}
+.sub_div ul li .desc {font-size: 2.8646vw;line-height: 1.5em;}
+
+}
+
+@media (max-width: 480px)  {
+
+.sub_div {}
+.sub_title {font-size: 10.0000vw;padding:16.6667vw 0 10.4167vw;}
+
+#form_wrap {padding:25.0000vw 0.0000vw 20.8333vw;}
+#form_wrap .form_desc {font-size: 6.2500vw; line-height: 10.0000vw;word-break:keep-all;}
+#form_wrap .alertmsg {font-size: 4.1667vw; line-height: 10.0000vw;word-break:keep-all; margin-top: 8.3333vw;	}
+#form_wrap form {width:100%; margin:16.6667vw auto 0.0000vw;}
+#form_wrap form .ev_btn {margin-bottom: 16.6667vw;}
+#form_wrap form .ev_btn div { width:100%;}
+#form_wrap form .ev_btn div input{padding: 1.0417vw 0;-webkit-transition: none;}
+
+.fd{  flex-wrap:wrap; margin:0 auto; gap:4.1667vw; justify-content: center}
+.fd h5{width: 21%; margin-bottom: 0vw;}
+.fd label{ padding:1.0417vw 0; border-radius:8.3333vw;  border: 0.2083vw solid #333;  cursor:pointer; font-size: 2.7vw; }
+.fd input[type='checkbox']:checked+label {background: #333;  }
+.fd .inputtext{ font-size: 2.3vw;}
+.fd .inputtext.onn{visibility:visible;}
+.new_sch_btn01{justify-}
+.inputt{}
+
+#form_wrap form input#btn_submit {width: 33.3333vw;height: 12.5000vw;background:#000;border:none;border-radius:0;cursor:pointer;font-size: 4.1667vw;margin:0 auto;padding-left:0;}
+
+.sub_tit {font-size: 5.0000vw;margin-bottom:5.2083vw;}
+.sub_div ul {background:#f1f1f1;padding:16.6667vw 0.0000vw;}
+.sub_div ul:after {clear:both;}
+.sub_div ul li {width: 58.3333vw;height: 58.3333vw;border-radius:50%;background:#fff;padding:10.4167vw 0;font-family: 'NanumSquare', sans-serif;margin:0 2.0833vw 6.2500vw;}
+.sub_div ul li .num {font-size: 10.0000vw;line-height:1.3em;}
+.sub_div ul li .desc {font-size: 4.5833vw;line-height: 1.5em;}
+}
+
+.center {
+  position: absolute;
+  display: inline-block;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+select {
+  z-index: 3;
+  float: left;
+}
+/** Custom Select **/
+.custom-select-wrapper {
+	position: relative;
+	display: inline-block;
+	user-select: none;
+	cursor: pointer;
+}
+.custom-select-wrapper select {
+  display: none;
+}
+.custom-select {
+  position: relative;
+  display: inline-block;
+  font-size: 18px;
+}
+.custom-select-trigger {
+  width: 100%;
+  position: relative;
+  display: block;
+  min-width: 130px;
+  padding: 0 104px 0 25px;
+  color: #000;
+  line-height: 50px;
+  background-color: #ffffff;
+  border:1px solid #000;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  font-size: 18px;
+}
+.custom-select-trigger:before {
+  position: absolute;
+  display: block;
+  content: "";
+  width: 1px;
+  height: 50px;
+  top: 3px;
+  right: 50px;
+  margin-top: -3px;
+  border-right: 1px solid #c7d1d6;
+  transition: all 0.35s ease-out;
+  transform-origin: 50% 0;
+}
+.custom-select-trigger:after {
+  position: absolute;
+  display: block;
+  content: "";
+  width: 10px;
+  height: 10px;
+  top: 50%;
+  right: 20px;
+  margin-top: -3px;
+  border-bottom: 1px solid #c7d1d6;
+  border-right: 1px solid #c7d1d6;
+  transform: rotate(45deg) translateY(-50%);
+  transition: all 0.35s ease-out;
+  transform-origin: 50% 0;
+}
+.custom-select.opened .custom-select-trigger:after {
+  margin-top: 3px;
+  transform: rotate(-135deg) translateY(-50%);
+}
+.custom-options {
+  position: absolute;
+  display: block;
+  top: 100%;
+  left: 0%;
+  right: 0;
+  width: 100%;
+
+  margin: 10px 0;
+  border-radius: 5px;
+  box-sizing: border-box;
+  /*  box-shadow: 0 2px 1px rgba(0, 0, 0, .1); */
+
+  background: #fff;
+  transition: all 0.2s ease-in-out;
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(-15px);
+  border: 0;
+}
+.custom-select.opened .custom-options {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: all;
+  transform: translateY(-8px);
+  height: 235px;
+  overflow-y:scroll;
+  border:1px solid #000;
+  flex-direction: column;
+
+}
+.option-hover:before {
+  background: #f9f9f9;
+}
+.custom-option {
+  position: relative;
+  display: block;
+  padding: 0 22px;
+  font-weight: 600;
+  color: #000;
+  line-height: 47px;
+  cursor: pointer;
+  transition: all 0.05s ease-in-out;
+}
+.custom-option:hover,
+.custom-option.selection {
+  color: #fff;
+  background-color: #000;
+}
+.dlffus{
+	display: flex;
+	flex-direction: column;
+}
+.wpvna{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.fd h4{
+	width: 100%;
+	font-size: 20px;
+	padding: 0 20px 10px 30px;
+}
+</style>
+
+<div class="sub_w">
+	<!-- 탑 배너 -->
+	<div class="sub_div div01">
+		<p class="sub_title">정품등록</p>
+		<div class="s_inner">
+			<div id="form_wrap" class="form_wrap nanumS">
+				<p class="form_desc">
+					제품 정품 등록을 하시면 이루다 몰에서 등록된 제품정보, 등록된 <br/ class="hide720">
+					제품의 보증 일자 조회 등의 다양한 서비스 혜택을 받으실 수 있습니다.
+				</p>
+				<p class="alertmsg">
+					보유중인 기기의 제품명을 클릭하시면 시리얼넘버를 입력하실 수 있습니다.
+				</p>
+				<form action="/bbs/write_update.php" method="post" class="qe_form clearfix" onsubmit="return fwrite_submit(this);" enctype="multipart/form-data" autocomplete="off">
+					<input type="hidden" value="genuine" name="bo_table">
+					<input type="hidden" id="mb_id" name="mb_id" value="<?php echo $member['mb_id']?>" />
+					<input type="hidden" id="wr_name" name="wr_name" value="<?php echo $member['mb_name']?>" />
+					<input type="hidden" id="wr_10" name="wr_10" value="1" />
+					<input type="hidden" id="wr_subject" name="wr_subject" value="<?php echo $member['mb_id']?> 님의 정품등록신청" />
+					<input type="hidden" id="wr_content" name="wr_content" value="정품등록 신청입니다." />
+					<?php  
+					$sql = "select * from g5_write_genuine where mb_id = '{$member['mb_id']}'";
+					$row = sql_fetch($sql);
+					if($row){?>
+					<input type="hidden" id="wr_id" name="wr_id" value="<?php echo $row['wr_id']?>"/>
+					<?php }?>
+
+					<div class="ev_btn">
+						<h4 style="display: flex; align-items:center; justify-content:center; font-size: 28px;margin-bottom: 60px;">제품정보 입력</h4>
+						<div class="sCore fd">
+							<div class="wpvna">
+								<h4>제품명</h4>
+								<select name="input1" id="potencial" class="custom-select sources" placeholder="제품을 선택하세요.">
+									<option value="reepot">reepot</option>
+									<option value="curas hybrid">curas hybrid</option>
+									<option value="secret MAX">secret MAX</option>
+									<option value="fortra">fortra</option>
+									<option value="secret DUO">secret DUO</option>
+									<option value="secret RF">secret RF</option>
+									<option value="fraxis">fraxis</option>
+									<option value="fraxis DUO">fraxis DUO</option>
+									<option value="n.core prime">n.core prime</option>
+									<option value="n.core 3D">n.core 3D</option>
+									<option value="pento">pento</option>
+									<option value="veloce">veloce</option>
+									<option value="hyzer me">hyzer me</option>
+									<option value="acutron">acutron</option>
+									<option value="reticapture">reticapture</option>
+									<option value="healer1064">healer1064</option>
+									<option value="vikini">vikini</option>
+									<option value="velux">velux</option>
+									<option value="ultra beaujet">ultra beaujet</option>
+									<option value="i-graft">i-graft</option>
+									<option value="cure.J">cure.J</option>
+								</select>
+							</div>
+							<div class="dlffus">
+								<h4>제품 일련번호</h4>
+								<input type="text" name="inputtext1" id="input1" value="" class="inputtext" placeholder="시리얼 넘버를 입력하세요." style="text-transform: uppercase;">
+							</div>
+							<script>
+								$(".custom-select").each(function() {
+								  var classes = $(this).attr("class"),
+								    id = $(this).attr("id"),
+								    name = $(this).attr("name");
+								  var template = '<div class="' + classes + '">';
+								  template +=
+								    '<span class="custom-select-trigger">' +
+								    $(this).attr("placeholder") +
+								    "</span>";
+								  template += '<div class="custom-options">';
+								  $(this)
+								    .find("option")
+								    .each(function() {
+								      template +=
+									'<span class="custom-option ' +
+									$(this).attr("class") +
+									'" data-value="' +
+									$(this).attr("value") +
+									'">' +
+									$(this).html() +
+									"</span>";
+								    });
+								  template += "</div></div>";
+
+								  $(this).wrap('<div class="custom-select-wrapper"></div>');
+								  $(this).hide();
+								  $(this).after(template);
+								});
+								$(".custom-option:first-of-type").hover(
+								  function() {
+								    $(this)
+								      .parents(".custom-options")
+								      .addClass("option-hover");
+								  },
+								  function() {
+								    $(this)
+								      .parents(".custom-options")
+								      .removeClass("option-hover");
+								  }
+								);
+								$(".custom-select-trigger").on("click", function() {
+								  $("html").one("click", function() {
+								    $(".custom-select").removeClass("opened");
+								  });
+								  $(this)
+								    .parents(".custom-select")
+								    .toggleClass("opened");
+								  event.stopPropagation();
+								});
+								$(".custom-option").on("click", function() {
+								  $(this)
+								    .parents(".custom-select-wrapper")
+								    .find("select")
+								    .val($(this).data("value"));
+								  $(this)
+								    .parents(".custom-options")
+								    .find(".custom-option")
+								    .removeClass("selection");
+								  $(this).addClass("selection");
+								  $(this)
+								    .parents(".custom-select")
+								    .removeClass("opened");
+								  $(this)
+								    .parents(".custom-select")
+								    .find(".custom-select-trigger")
+								    .text($(this).text());
+								});
+							</script>
+						</div>
+
+					</div>
+					<input type="submit" value="정품등록" id="btn_submit" accesskey="s" class="">
+				</form>
+			</div>
+		</div>
+	</div>
+	
+<!-- 	<div class="sub_div div02">
+		<p class="sub_tit">왜 정품 등록을 해야 될까요?</p>
+		<ul>
+			<li>
+				<p class="num">01</p>
+				<p class="desc">
+					적립금 & 바우처 발급 <br/>
+					소모품 및 마케팅 용품 <br/>
+					구매 사용
+				</p>
+			</li>
+			<li>
+				<p class="num">02</p>
+				<p class="desc">
+					무상 수리 기간 연장 <br/>
+					기존 1년 + 1년 <br/>
+					총 2년
+				</p>
+			</li>
+			<li>
+				<p class="num">03</p>
+				<p class="desc">
+					프리미엄 기프트 <br/>
+					리팟 구매 고객 전용 <br/>
+					4종 SET
+				</p>
+			</li>
+			<li>
+				<p class="num">04</p>
+				<p class="desc">
+					마케팅 컨텐츠 <br/>
+					사후케어 및 <br/>
+					시술 경과 이미지
+				</p>
+			</li>
+		</ul>
+	</div> -->
+</div>
+
+<!-- } content -->
+
+
+<script>
+$(document).ready(function() {
+	$("input:checkbox[id=input1]").click(function(){
+        $("input:text[id=input1]").toggleClass("onn");
+    });
+	$("input:checkbox[id=input2]").click(function(){
+        $("input:text[id=input2]").toggleClass("onn");
+    });
+	$("input:checkbox[id=input3]").click(function(){
+        $("input:text[id=input3]").toggleClass("onn");
+    });
+	$("input:checkbox[id=input4]").click(function(){
+        $("input:text[id=input4]").toggleClass("onn");
+    });
+	$("input:checkbox[id=input5]").click(function(){
+        $("input:text[id=input5]").toggleClass("onn");
+    });
+	$("input:checkbox[id=input6]").click(function(){
+        $("input:text[id=input6]").toggleClass("onn");
+    });
+	$("input:checkbox[id=input7]").click(function(){
+        $("input:text[id=input7]").toggleClass("onn");
+    });
+	$("input:checkbox[id=input8]").click(function(){
+        $("input:text[id=input8]").toggleClass("onn");
+    });
+	$("input:checkbox[id=input9]").click(function(){
+        $("input:text[id=input9]").toggleClass("onn");
+    });
+	$("input:checkbox[id=input10]").click(function(){
+        $("input:text[id=input10]").toggleClass("onn");
+    });
+	$("input:checkbox[id=input11]").click(function(){
+        $("input:text[id=input11]").toggleClass("onn");
+    });
+	$("input:checkbox[id=input12]").click(function(){
+        $("input:text[id=input12]").toggleClass("onn");
+    });
+	$("input:checkbox[id=input13]").click(function(){
+        $("input:text[id=input13]").toggleClass("onn");
+    });
+	$("input:checkbox[id=input14]").click(function(){
+        $("input:text[id=input14]").toggleClass("onn");
+    });
+	$("input:checkbox[id=input15]").click(function(){
+        $("input:text[id=input15]").toggleClass("onn");
+    });
+	$("input:checkbox[id=input16]").click(function(){
+        $("input:text[id=input16]").toggleClass("onn");
+    });
+	$("input:checkbox[id=input17]").click(function(){
+        $("input:text[id=input17]").toggleClass("onn");
+    });
+	$("input:checkbox[id=input18]").click(function(){
+        $("input:text[id=input18]").toggleClass("onn");
+    });
+	$("input:checkbox[id=input19]").click(function(){
+        $("input:text[id=input19]").toggleClass("onn");
+    });
+	$("input:checkbox[id=input20]").click(function(){
+        $("input:text[id=input20]").toggleClass("onn");
+    });
+
+});
+
+function fwrite_submit(f){
+	
+	if ((f.input1text.value.length==0) && (f.input2text.value.length==0) && (f.input3text.value.length==0) && (f.input4text.value.length==0) && (f.input5text.value.length==0) && (f.input6text.value.length==0) && (f.input7text.value.length==0) && (f.input8text.value.length==0) && (f.input9text.value.length==0) && (f.input10text.value.length==0) && (f.input11text.value.length==0) && (f.input12text.value.length==0) && (f.input13text.value.length==0) && (f.input14text.value.length==0) && (f.input15text.value.length==0) && (f.input16text.value.length==0) && (f.input17text.value.length==0) && (f.input18text.value.length==0) && (f.input19text.value.length==0) && (f.input20text.value.length==0)) 
+	{
+		alert("시리얼 넘버는 최소 1개 입력하셔야 합니다.");
+		//f.input1.focus();
+		return false;
+	}
+	
+}
+</script>
+
+
+<?php
+include_once(G5_PATH.'/tail.php');

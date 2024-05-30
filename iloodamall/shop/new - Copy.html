@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>비디오 목록 예제</title>
+<style>
+        #videoPopup {
+            display: none;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+			z-index: 999;
+        }
+
+        #videoContainer {
+            position: relative;
+            width: 800px; /* 비디오 컨테이너 너비 조정 */
+            height: 600px; /* 비디오 컨테이너 높이 조정 */
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+        }
+
+        #closeButton {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            cursor: pointer;
+            font-size: 20px;
+            color: white;
+        }
+
+        #thanksText {
+            position: absolute;
+            top: 50%; /* 상단에서 50% 위치 */
+            left: 50%; /* 왼쪽에서 50% 위치 */
+            transform: translate(-50%, -50%); /* 정확한 중앙 정렬을 위해 */
+            color: white;
+            font-size: 24px;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="videoList">
+    <button class="videoBtn" data-video="1">비디오1</button>
+    <button class="videoBtn" data-video="2">비디오2</button>
+    <button class="videoBtn" data-video="3">비디오3</button>
+    <button class="videoBtn" data-video="4">비디오4</button>
+</div>
+
+<div id="videoPopup">
+    <div id="videoContainer">
+        <div id="closeButton">닫기</div>
+        <div id="thanksText">감사합니다</div>
+        <video id="videoPlayer" controls>
+            <source src="" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+</div>
+<li data-category="reepot" class="story">
+	<div id="videoThumbnail39" style="position: relative; cursor: pointer;"class="videoBtn" data-video="1">
+		<img src="https://ilooda.s3.ap-northeast-2.amazonaws.com/%EC%98%81%EC%83%81(%EA%B3%A0%ED%95%B4%EC%83%81)/1.+reepot/%EC%8A%A4%ED%86%A0%EB%A6%AC/%EB%A6%AC%ED%8C%9F%EC%9D%84+%EC%95%8C%EA%B2%8C+%EB%90%98%EB%8A%94+%EC%B2%AB+%EA%B1%B8%EC%9D%8C+reepot+guardians+%EC%86%8C%EA%B0%9C+%EC%98%81%EC%83%81.png" alt="Video Thumbnail" width="100%" height="100%">
+	</div>
+</li>
+<script>
+document.addEventListener('DOMContentLoaded', (event) => {
+    // 비디오 경로 설정
+    const videoPaths = {
+        1: 'https://ilooda.s3.ap-northeast-2.amazonaws.com/%EC%98%81%EC%83%81(%EA%B3%A0%ED%95%B4%EC%83%81)/1.+reepot/%EC%8A%A4%ED%86%A0%EB%A6%AC/%EB%A6%AC%ED%8C%9F%EC%9D%84+%EC%95%8C%EA%B2%8C+%EB%90%98%EB%8A%94+%EC%B2%AB+%EA%B1%B8%EC%9D%8C+reepot+guardians+%EC%86%8C%EA%B0%9C+%EC%98%81%EC%83%81.mp4',
+        2: 'https://ilooda.s3.ap-northeast-2.amazonaws.com/%EC%98%81%EC%83%81(%EA%B3%A0%ED%95%B4%EC%83%81)/1.+reepot/%EC%8A%A4%ED%86%A0%EB%A6%AC/%EC%83%88%EB%A1%9C%EC%9A%B4+%EA%B8%B0%EC%88%A0%2C+%EC%83%88%EB%A1%9C%EC%9A%B4+%EA%B2%B0%EA%B3%BC%EB%AC%BC+reepot+Interview.mp4',
+        // 다른 비디오 경로들...
+    };
+
+    document.querySelectorAll('.videoBtn').forEach(button => {
+        button.addEventListener('click', function() {
+            const videoNum = this.getAttribute('data-video');
+            const videoSrc = videoPaths[videoNum];
+            const videoPlayer = document.getElementById('videoPlayer');
+            videoPlayer.src = videoSrc;
+            videoPlayer.play(); // 비디오 자동 재생
+            document.getElementById('videoPopup').style.display = 'flex';
+        });
+    });
+
+    document.getElementById('closeButton').addEventListener('click', function() {
+        const videoPlayer = document.getElementById('videoPlayer');
+        videoPlayer.pause();
+        videoPlayer.src = ""; // 비디오 소스 제거
+        document.getElementById('videoPopup').style.display = 'none';
+    });
+});
+</script>
+
+</body>
+</html>
