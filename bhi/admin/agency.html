@@ -1,0 +1,424 @@
+
+<?php
+include 'inc_head.php';
+include_once	"../lib/db.class.php";
+include_once	"../lib/db.class2.php";
+
+if ( !$jb_login )
+	header('Location: ./login.html');
+
+$DB_LP = new DBCLASS;
+$DB_LP2 = new DBCLASS2;
+$email = $_SESSION[ 'username' ];
+
+
+$qry = "select * from coinprice;";
+$DB_LP->select($qry);
+
+$row = $DB_LP->get_data();
+
+$BTCP = $row->BTC;
+$ETHP = $row->ETH;
+$XRPP = $row->XRP;
+$GOTGP = $row->GOTG;
+$NFTDP = $row->NFTD;
+
+$GOTGP = 1;
+
+$BTCS = $row->BTC_S;
+$ETHS = $row->ETH_S;
+$XRPS = $row->XRP_S;
+
+$BTCR = number_format( ( $BTCP - $BTCS ) / $BTCS * 100, 2);
+$ETHR = number_format(( $ETHP - $ETHS ) / $ETHS * 100 , 2);
+$XRPR = number_format(( $XRPP - $XRPS ) / $XRPS * 100, 2);
+
+
+
+$qry = "select * from user_info where email = '$email';";
+$DB_LP->select($qry);
+
+$row = $DB_LP->get_data();
+$no = $row->no;
+
+$BTC = $row->BTC;
+$ETH = $row->ETH;
+$XRP = $row->XRP;
+$GOTG = $row->GOTG;
+$NFTD = $row->NFTD;
+
+$total_krw = $BTC * $BTCP + $ETH * $ETHP + $XRP * $XRPP + $GOTG * $GOTGP + $NFTD * $NFTDP;
+
+$today = date("Y-m-d");
+
+
+$qry = "select * from partner1 order by rdate desc ;";
+
+$DB_LP->select($qry);
+
+echo $qry;
+
+
+$sum = 0;
+
+$idx = 0;
+
+$tx_arr = array();
+
+$sum_coin = 0;
+
+while($row = $DB_LP->get_data())
+{
+
+	$no = $row->no;
+	$rdate = $row->rdate;
+	$partner1 = $row->uid;
+	$fee1 = $row->fee;
+	$active = $row->active;
+
+
+	$qry2 = "select * from partner2 where rid = '$partner1';";
+	$cnt = $DB_LP2->select($qry2);
+	$row2 = $DB_LP2->get_data();
+
+
+	$tx_arr['no'][$idx] = $no;	
+	$tx_arr['rdate'][$idx] = $rdate;
+	
+	$tx_arr['partner1'][$idx] = $partner1;
+	$tx_arr['fee1'][$idx] = $fee1;
+	$tx_arr['active'][$idx] = $cnt;
+
+	$qry2 = "select * from user_info where email = '$partner1';";
+	$cnt = $DB_LP2->select($qry2);
+	$row2 = $DB_LP2->get_data();
+	$tx_arr['coin'][$idx] = $row2->GOTG;
+	
+	$sum_coin = $sum_coin + $row2->GOTG;
+
+	$idx++;
+
+}
+
+
+
+$DB_LP2->close();
+$DB_LP->close();
+
+
+?>
+
+<!--
+=========================================================
+* Paper Dashboard 2 - v2.0.1
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/paper-dashboard-2
+* Copyright 2020 Creative Tim (https://www.creative-tim.com)
+
+Coded by www.creative-tim.com
+
+ =========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="./assets/img/favicon.png">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>
+    BIT-DEX Admin Dashboard
+  </title>
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+  <!-- CSS Files -->
+  <link href="./assets/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="./assets/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
+  <!-- CSS Just for demo purpose, don't include it in your project -->
+  <link href="./assets/demo/demo.css" rel="stylesheet" />
+
+  <script language="javascript">
+	  function showPopup() { window.open("./addpartner.html?type=1", "a", "width=400, height=700, left=100, top=50"); }
+	  function showPopup2() { window.open("../signup_agency.html", "a", "width=400, height=800, left=100, top=50"); }
+  </script>
+
+</head>
+
+<body class="">
+  <div class="wrapper ">
+    <div class="sidebar" data-color="white" data-active-color="danger">
+      <div class="logo">
+        <a href="#" class="simple-text logo-mini">
+          <div class="logo-image-small">
+
+          </div>
+          <!-- <p>CT</p> -->
+        </a>
+        <a href="#" class="simple-text logo-normal">
+          BIT-DEX Admin
+          <!-- <div class="logo-image-big">
+            <img src="./assets/img/logo-big.png">
+          </div> -->
+        </a>
+      </div>
+      <div class="sidebar-wrapper">
+        <ul class="nav">
+ 	          <li >
+            <a href="./dashboard.html">
+              <i class="nc-icon nc-bank"></i>
+              <p>DashBoard</p>
+            </a>
+          </li>
+          <li>
+            <a href="./buylog.html">
+              <i class="nc-icon nc-tile-56"></i>
+              <p>구매 내역</p>
+            </a>
+          </li>
+          <li>
+            <a href="./buylog2.html">
+			   <i class="nc-icon nc-bell-55"></i>
+              <p>지갑전송내역(환전)</p>
+            </a>
+          </li>
+          <li >
+            <a href="./selllog.html">
+              <i class="nc-icon nc-diamond"></i>
+              <p>판매 내역</p>
+            </a>
+          </li>
+          <li class="active ">
+            <a href="./agency.html">
+              <i class="nc-icon nc-pin-3"></i>
+              <p>파트너 관리</p>
+            </a>
+          </li>
+          <li>
+            <a href="./buyer.html">
+              <i class="nc-icon nc-single-02"></i>
+              <p>회원 관리</p>
+            </a>
+          </li>
+          <li>
+            <a href="./coin.html">
+              <i class="nc-icon nc-spaceship"></i>
+              <p>정산</p>
+            </a>
+          </li>
+          <li>
+            <a href="./unprocessed.html" >
+              <i class="nc-icon nc-bank"></i>
+              <p>미처리 내역</p>
+            </a>
+          </li>
+          <li>
+            <a href="./fee_config.html" onclick = "window.open(this.href, '_blank', 'width=400, height=800, left=100, top=50'); return false">
+              <i class="nc-icon nc-bank"></i>
+              <p>수수료 설정</p>
+            </a>
+          </li>
+          <li>
+            <a href="./login.html">
+              <i class="nc-icon nc-app"></i>
+              <p>로그아웃</p>
+            </a>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+    <div class="main-panel">
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
+        <div class="container-fluid">
+          <div class="navbar-wrapper">
+            <div class="navbar-toggle">
+              <button type="button" class="navbar-toggler">
+                <span class="navbar-toggler-bar bar1"></span>
+                <span class="navbar-toggler-bar bar2"></span>
+                <span class="navbar-toggler-bar bar3"></span>
+              </button>
+            </div>
+            <a class="navbar-brand" href="javascript:;">BIT-DEX Dashboard</a>
+          </div>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-end" id="navigation">
+            <form>
+              <div class="input-group no-border">
+                <input type="text" value="" class="form-control" placeholder="Search...">
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <i class="nc-icon nc-zoom-split"></i>
+                  </div>
+                </div>
+              </div>
+            </form>
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link btn-magnify" href="javascript:;">
+                  <i class="nc-icon nc-layout-11"></i>
+                  <p>
+                    <span class="d-lg-none d-md-block">Stats</span>
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item btn-rotate dropdown">
+                <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="nc-icon nc-bell-55"></i>
+                  <p>
+                    <span class="d-lg-none d-md-block">Some Actions</span>
+                  </p>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="dropdown-item" href="#">Action</a>
+                  <a class="dropdown-item" href="#">Another action</a>
+                  <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link btn-rotate" href="javascript:;">
+                  <i class="nc-icon nc-settings-gear-65"></i>
+                  <p>
+                    <span class="d-lg-none d-md-block">Account</span>
+                  </p>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+     
+      <!-- End Navbar -->
+      <div class="content">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <h4 class="card-title">파트너1 관리</h4>
+					<h5>보유코인 합계 : <?php echo number_format($sum_coin, 3 );?> </h5>
+					<input type="button" id="id_check" class="btn btn-outline-secondary" value="파트너1" onclick="location.href='./agency.html'" />
+					<input type="button" id="id_check" class="btn btn-outline-secondary" value="파트너2" onclick="location.href='./agency2.html'" />
+					<input type="button" id="id_check" class="btn btn-outline-secondary" value="상점" onclick="location.href='./shop.html'" />
+
+              </div>
+
+              <div class="card-body">
+
+                <div class="table-responsive">
+				<table class="table">
+                    <thead class=" text-primary" align = "center">
+                      <th align = "center">
+                        No.
+                      </th>
+                      <th align = "center">
+                        등록일
+                      </th>
+                      <th align = "center">
+                        파트너1
+                      </th>
+                      <th align = "center">
+                        보유코인
+                      </th>
+                      <th align = "center">
+                        수수료
+                      </th>
+                      <th align = "center">
+                        활동
+                      </th>
+
+
+                    </thead>
+
+					<?php 
+
+
+					?>
+					<?php
+						for ( $i = 0; $i < $idx; $i++ )
+						{
+					?>
+                   <tbody>
+                      <tr align = "center">
+                        <td>
+								<?php echo $i+1; ?>
+                        </td>
+                        <td>
+								<?php echo $tx_arr['rdate'][$i]; ?>
+                        </td>
+
+                        <td>
+							<a href = "./detail_info.html?no=<?php echo $tx_arr['no'][$i];?>" onclick = "window.open(this.href, '_blank', 'width=400, height=800, left=100, top=50'); return false"><?php echo $tx_arr['partner1'][$i]; ?></a><input type="button" id="id_check" class="btn btn-outline-primary" value="하부" onclick="location.href='./agency2.html?id=<?php echo $tx_arr['partner1'][$i];?>'" /><input type="button" id="id_check" class="btn btn-outline-primary" value="중지" onclick="location.href='./agency2.html?id=<?php echo $tx_arr['partner1'][$i];?>'" />
+                        </td>
+                        <td>
+								<?php echo number_format($tx_arr['coin'][$i], 2); ?>
+                        </td>
+                        <td>
+								<?php echo number_format($tx_arr['fee1'][$i], 2); ?>
+                        </td>
+                        <td>
+								<?php echo $tx_arr['active'][$i]; ?>
+                        </td>
+                      </tr>
+                    </tbody>
+
+					<?php
+						}
+					?>
+
+				</table>
+
+		      <div class="card-header">
+					<input type="button" id="id_check" class="btn btn-outline-secondary" value="등록" onclick="showPopup();" />
+				</div>
+
+			</div>
+
+      <footer class="footer footer-black  footer-white ">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="credits ml-auto">
+              <span class="copyright">
+                © <script>
+                  document.write(new Date().getFullYear())
+                </script>, made with <i class="fa fa-heart heart"></i> by Pay-G
+              </span>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+  <!--   Core JS Files   -->
+  <script src="./assets/js/core/jquery.min.js"></script>
+  <script src="./assets/js/core/popper.min.js"></script>
+  <script src="./assets/js/core/bootstrap.min.js"></script>
+  <script src="./assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <!--  Google Maps Plugin    -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+  <!-- Chart JS -->
+  <script src="./assets/js/plugins/chartjs.min.js"></script>
+  <!--  Notifications Plugin    -->
+  <script src="./assets/js/plugins/bootstrap-notify.js"></script>
+  <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="./assets/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script><!-- Paper Dashboard DEMO methods, don't include it in your project! -->
+  <script src="./assets/demo/demo.js"></script>
+  <script>
+    $(document).ready(function() {
+      // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
+      demo.initChartsPages();
+    });
+  </script>
+</body>
+
+</html>

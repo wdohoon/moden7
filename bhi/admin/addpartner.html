@@ -1,0 +1,170 @@
+<?php
+
+
+include_once	"../lib/db.class.php";
+
+
+$ret = $_GET['ret'];
+
+if ( $ret == 1)
+{
+	echo "<script>alert('파트너 등록에 실패했습니다.');</script>";
+}
+else if ( $ret == 2)
+{
+	echo "<script>alert('파트너 등록에 성공 하였습니다.');</script>";
+}
+else if ( $ret == 3)
+{
+	echo "<script>alert('상위 파트너 요율보다 높게 설정 할 수 없습니다.');</script>";
+}
+else if ( $ret == 4)
+{
+	echo "<script>alert('상점은 상위 파트너 요율보다 낮게 설정 할 수 없습니다.');</script>";
+}
+
+
+
+$no = $_GET['no'];
+$type = $_GET['type'];
+$email = $_GET['email'];
+$username = $_SESSION[ 'username' ];
+$DB_LP = new DBCLASS;
+
+$qry2 = "select * from user_info where no = '$no';";
+$DB_LP->select($qry2);
+$row = $DB_LP->get_data();
+
+$ref_email = $row->email;
+
+if ( $type == 1 )
+	$text = "파트너1";
+
+if ( $type == 2 )
+	$text = "파트너2";
+
+if ( $type == 3 )
+	$text = "상점";
+
+
+$DB_LP->close();
+
+
+
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+	<title>Bit-Dex</title>
+
+	<!-- Google font file. If you want you can change. -->
+	<link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700,900" rel="stylesheet">
+
+	<!-- Fontawesome font file css -->
+	<link rel="stylesheet" type="text/css" href="../css/font-awesome.min.css">
+
+	<!-- Template global css file. Requared all pages -->
+	<link rel="stylesheet" type="text/css" href="../css/global.style.css">
+</head>
+
+<script type='text/javascript'>
+<!--
+function chk()
+{
+    var fm  = document.my;
+
+    for(var i=1; i<=2; i++)
+    {
+        if (!fm['enable'+i].checked)
+        {
+            alert('약관과 개인정보 보호정책에 모두 동의 해 주셔야 회원가입이 정상적으로 이루어집니다');
+            return;
+        }
+    }
+
+    fm.submit();
+}
+//-->
+</script>
+
+<body>
+	
+	<div class="wrapper">
+		<div class="wrapper-inline">
+			<!-- Header area start -->
+			<header> <!-- extra class no-background -->
+				<a class="go-back-link" href="javascript:history.back();"><i class="fa fa-arrow-left"></i></a>
+				<h1 class="page-title"><?php echo $text;?> 등록</h1>
+			</header>
+			<!-- Header area end -->
+			<!-- Page content start -->
+			<main>
+				<div class="container">
+					<div class="form-divider"></div>
+					<p style="text-align: center;">
+						<img src = "../images/paygThum.png" align = "center">
+					</p>
+					<div class="form-divider"></div>
+
+					<div class="form-row-group with-icons">
+						<form action="join_partner.php" method="post" class="signup-form" id="loginForm">
+
+							<div class="form-row no-padding">
+								<i class="fa fa fa-bank"></i>
+								<input type="text" name="partner1" class="form-element" placeholder="상위파트너아이디" >
+							</div>
+
+							<div class="form-row no-padding">
+								<i class="fa fa fa-bank"></i>
+								<input type="text" name="partner" class="form-element" placeholder="<?php echo $text;?>" >
+								<input type="hidden" id="type" name="type" value="<?php echo $type;?>">
+								<input type="hidden" id="no" name="no" value="<?php echo $no;?>">
+							</div>
+							<div class="form-row no-padding">
+								<i class="fa fa fa-bank"></i>
+								<input type="text" name="pfee" class="form-element" placeholder="수수료(%) " >
+							</div>						
+						</form>	
+
+					</div>
+
+
+					<div class="form-divider"></div>
+	
+
+					 <button type="submit" id="signup-button" form="loginForm" onclick="chk()" class="button circle block orange"><?php echo $text;?> 등록</button>
+					 <br><b>
+					 *주의* 비트덱스 가입 후, 해당 아이디를 파트너 등록에 사용 하셔야 합니다.<br>
+					 *주의* 비트덱스에 가입되지 않은 계정은 파트너 등록이 불가능합니다.</b>
+
+
+				</div>
+			</main>
+			<!-- Page content end -->
+		</div>
+	</div>
+
+
+	<!--Page loader DOM Elements. Requared all pages-->
+	<div class="sweet-loader">
+		<div class="box">
+		  	<div class="circle1"></div>
+		  	<div class="circle2"></div>
+		  	<div class="circle3"></div>
+		</div>
+	</div>
+
+	<!-- JQuery library file. requared all pages -->
+	<script src="js/jquery-3.2.1.min.js"></script>
+
+	<!-- Template global script file. requared all pages -->
+	<script src="js/global.script.js"></script>
+
+	
+</body>
+
+</html>

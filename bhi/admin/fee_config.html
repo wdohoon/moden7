@@ -1,0 +1,180 @@
+<?php
+
+
+include_once	"../lib/db.class.php";
+
+$ret = $_GET['ret'];
+
+if ( $ret ==1 )
+{
+	 echo "<script>alert('설정 완료!');</script>";
+}
+
+$no = $_GET['ref'];
+$type = $_GET['type'];
+$email = $_GET['email'];
+$username = $_SESSION[ 'username' ];
+$DB_LP = new DBCLASS;
+
+$qry2 = "select * from bd_config;";
+$DB_LP->select($qry2);
+$row = $DB_LP->get_data();
+$d_fee_rate = $row->d_fee_rate;
+$d_fee_per = $row->d_fee_per;
+$w_fee_per = $row->w_fee_per;
+$transfer_fee = $row->transfer_fee;
+$check_p2p = $row->check_p2p;
+$check_p2c = $row->check_p2c;
+$min_w_money = $row->min_w_money;
+$max_w_money = $row->max_w_money;
+
+$min_t_coin = $row->min_t_coin;
+$max_t_coin = $row->max_t_coin;
+
+$DB_LP->close();
+
+
+
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+	<title>Pay-G</title>
+
+	<!-- Google font file. If you want you can change. -->
+	<link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700,900" rel="stylesheet">
+
+	<!-- Fontawesome font file css -->
+	<link rel="stylesheet" type="text/css" href="../css/font-awesome.min.css">
+
+	<!-- Template global css file. Requared all pages -->
+	<link rel="stylesheet" type="text/css" href="../css/global.style.css">
+</head>
+
+<script type='text/javascript'>
+<!--
+function chk()
+{
+    var fm  = document.my;
+
+    for(var i=1; i<=2; i++)
+    {
+        if (!fm['enable'+i].checked)
+        {
+            alert('약관과 개인정보 보호정책에 모두 동의 해 주셔야 회원가입이 정상적으로 이루어집니다');
+            return;
+        }
+    }
+
+    fm.submit();
+}
+//-->
+</script>
+
+<body>
+	
+	<div class="wrapper">
+		<div class="wrapper-inline">
+			<!-- Header area start -->
+			<header> <!-- extra class no-background -->
+				<a class="go-back-link" href="javascript:history.back();"><i class="fa fa-arrow-left"></i></a>
+				<h1 class="page-title">수수료 설정</h1>
+			</header>
+			<!-- Header area end -->
+			<!-- Page content start -->
+
+
+			<main>
+				<div class="container">
+					<div class="form-divider"></div>
+					<div class="form-divider"></div>
+					<div class="form-row-group with-icons">
+						<form action="set_config.php" method="post" class="signup-form" id="loginForm">
+							<div class="form-row no-padding">
+								입금 수수료(%) 
+									<input type="type" name="d_fee_rate" class="form-element" value="<?php echo $d_fee_rate;?>" >							
+							</div>
+							<div class="form-row no-padding">
+								건당입금수수료(원) 
+								<input type="text" name="d_fee_per" class="form-element" value="<?php echo $d_fee_per;?>" >
+							</div>
+							<div class="form-row no-padding">
+								출금수수료(원) 
+								<input type="text" name="w_fee_per" class="form-element" value="<?php echo $w_fee_per;?>" >
+							</div>
+							<div class="form-row no-padding">
+								지갑간전송수수료(%)
+								<input type="text" name="transfer_fee" class="form-element" value="<?php echo $transfer_fee;?>" >
+							</div>
+
+							<div class="form-row no-padding">
+								개인-개인(비활성:0, 활성:1)
+								<input type="text" name="check_p2p" class="form-element" value="<?php echo $check_p2p;?>" >
+							</div>
+
+							<div class="form-row no-padding">
+								개인-상점(비활성:0, 활성:1) 
+								<input type="text" name="check_p2c" class="form-element" value="<?php echo $check_p2c;?>" >
+							</div>
+						
+							<div class="form-row no-padding">
+								최소출금액
+								<input type="text" name="min_w_money" class="form-element" value="<?php echo $min_w_money;?>" >
+							</div>
+`						
+							<div class="form-row no-padding">
+								최대출금액
+								<input type="text" name="max_w_money" class="form-element" value="<?php echo $max_w_money;?>" >
+							</div>
+
+							<div class="form-row no-padding">
+								최소전송코인
+								<input type="text" name="min_t_coin" class="form-element" value="<?php echo $min_t_coin;?>" >
+							</div>
+`						
+							<div class="form-row no-padding">
+								최대전송코인
+								<input type="text" name="max_t_coin" class="form-element" value="<?php echo $max_t_coin;?>" >
+							</div>
+
+						</form>	
+
+					</div>
+
+
+					<div class="form-divider"></div>
+	
+
+					 <button type="submit" id="signup-button" form="loginForm" onclick="chk()" class="button circle block orange">설정 완료</button>
+
+
+				</div>
+			</main>
+			<!-- Page content end -->
+		</div>
+	</div>
+
+
+	<!--Page loader DOM Elements. Requared all pages-->
+	<div class="sweet-loader">
+		<div class="box">
+		  	<div class="circle1"></div>
+		  	<div class="circle2"></div>
+		  	<div class="circle3"></div>
+		</div>
+	</div>
+
+	<!-- JQuery library file. requared all pages -->
+	<script src="js/jquery-3.2.1.min.js"></script>
+
+	<!-- Template global script file. requared all pages -->
+	<script src="js/global.script.js"></script>
+
+	
+</body>
+
+</html>

@@ -1,0 +1,174 @@
+<?php
+
+
+include_once	"../lib/db.class.php";
+
+
+$no = $_GET['ref'];
+$type = $_GET['type'];
+$email = $_GET['email'];
+$username = $_SESSION[ 'username' ];
+$DB_LP = new DBCLASS;
+
+$qry2 = "select * from user_info where no = '$no';";
+$DB_LP->select($qry2);
+$row = $DB_LP->get_data();
+
+$ref_email = $row->email;
+
+
+
+$DB_LP->close();
+
+
+
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+	<title>Pay-G</title>
+
+	<!-- Google font file. If you want you can change. -->
+	<link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700,900" rel="stylesheet">
+
+	<!-- Fontawesome font file css -->
+	<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+
+	<!-- Template global css file. Requared all pages -->
+	<link rel="stylesheet" type="text/css" href="css/global.style.css">
+</head>
+
+<script type='text/javascript'>
+<!--
+function chk()
+{
+    var fm  = document.my;
+
+    for(var i=1; i<=2; i++)
+    {
+        if (!fm['enable'+i].checked)
+        {
+            alert('약관과 개인정보 보호정책에 모두 동의 해 주셔야 회원가입이 정상적으로 이루어집니다');
+            return;
+        }
+    }
+
+    fm.submit();
+}
+//-->
+</script>
+
+<body>
+	
+	<div class="wrapper">
+		<div class="wrapper-inline">
+			<!-- Header area start -->
+			<header> <!-- extra class no-background -->
+				<a class="go-back-link" href="javascript:history.back();"><i class="fa fa-arrow-left"></i></a>
+				<h1 class="page-title">판매자 등록</h1>
+			</header>
+			<!-- Header area end -->
+			<!-- Page content start -->
+			<main>
+				<div class="container">
+					<div class="form-divider"></div>
+					<p style="text-align: center;">
+						<img src = "./img/content/coin11.png" align = "center">
+					</p>
+					<div class="form-divider"></div>
+
+					<div class="form-row-group with-icons">
+						<form action="join_result2.php" method="post" class="signup-form" id="loginForm">
+							<div class="form-row no-padding">
+								<i class="fa fa-envelope"></i>
+								<?php
+
+								if ( $email )
+								{
+
+								?>
+								<input type="email" name="email" class="form-element" placeholder="이메일 주소를 입력하세요." value="<?php echo $email;?>" style="color:blue" readonly >
+								<?php
+								}
+								else
+								{
+
+								?>
+									<input type="email" name="email" class="form-element" placeholder="이메일 주소를 입력하세요." >
+								<?php
+								}
+								?>
+
+								
+							</div>
+							<div class="form-row no-padding">
+								<i class="fa fa-user"></i>
+								<input type="text" name="name" class="form-element" placeholder="이름" >
+							</div>
+							<div class="form-row no-padding">
+								<i class="fa fa-mobile"></i>
+								<input type="text" name="cellphone" class="form-element" placeholder="연락처" >
+							</div>
+							<div class="form-row no-padding">
+								<i class="fa fa-id-badge"></i>
+								<input type="text" name="passwd" class="form-element" placeholder="비밀번호" >
+							</div>
+							<div class="form-row no-padding">
+								<i class="fa fa fa-bank"></i>
+								<input type="text" name="bankname" class="form-element" placeholder="은행명" >
+							</div>
+
+							<div class="form-row no-padding">
+								<i class="fa fa fa-bank"></i>
+								<input type="text" name="bankaccount" class="form-element" placeholder="은행계좌" >
+							</div>
+
+							<div class="form-row no-padding">
+								<i class="fa fa fa-bank"></i>
+								<input type="text" name="bankowner" class="form-element" placeholder="예금주" >
+							</div>
+						</form>	
+
+					</div>
+
+
+					<div class="form-divider"></div>
+	
+
+					 <button type="submit" id="signup-button" form="loginForm" onclick="chk()" class="button circle block orange">판매자 등록완료</button>
+
+
+					<div class="form-row txt-center mt-15">
+						이미 계정이 있은신가요? <a href="login.html" data-loader="show">로그인</a>
+					</div>
+
+				</div>
+			</main>
+			<!-- Page content end -->
+		</div>
+	</div>
+
+
+	<!--Page loader DOM Elements. Requared all pages-->
+	<div class="sweet-loader">
+		<div class="box">
+		  	<div class="circle1"></div>
+		  	<div class="circle2"></div>
+		  	<div class="circle3"></div>
+		</div>
+	</div>
+
+	<!-- JQuery library file. requared all pages -->
+	<script src="js/jquery-3.2.1.min.js"></script>
+
+	<!-- Template global script file. requared all pages -->
+	<script src="js/global.script.js"></script>
+
+	
+</body>
+
+</html>

@@ -1,0 +1,47 @@
+<?php
+
+
+
+include '../inc_head.php';
+include_once	"../lib/db.class.php";
+
+
+$DB_LP = new DBCLASS;
+
+
+$url = "https://quotation-api-cdn.dunamu.com/v1/forex/recent?codes=FRX.KRWUSD";
+
+
+
+
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, $url);
+curl_setopt($ch, CURLOPT_HEADER, false);
+curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
+
+$response = curl_exec($ch);
+
+curl_close($ch);
+
+
+$result = json_decode($response, true);
+
+print_r( $result );
+
+$a1 = $result[0]['openingPrice'];
+$a2 = $result[0]['cashBuyingPrice'];
+$a3 = $result[0]['changePrice'];
+$a4 = $result[0]['cashSellingPrice'];
+
+$qry = "UPDATE fxinfo SET openPrice = $a1, cashbuyPrice = $a2, changePrice = $a3, cashsellPrice = $a4;";
+$DB_LP->select($qry);
+
+echo $qry;
+
+$DB_LP->close();
+
+?>

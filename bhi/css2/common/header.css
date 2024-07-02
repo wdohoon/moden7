@@ -1,0 +1,70 @@
+#header{
+    position: fixed;
+    width: 100%;
+    max-width: 500px;
+    background: #fff;
+    z-index: 99999;
+    height: 50px;
+}
+
+.brb{
+    border-bottom:1px solid #F4F4F4;
+}
+
+.my_info{
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 50%;
+    right: 5%;
+    transform: translateY(-50%);
+    background: url(../../images/common/user_img.png) 0 0 no-repeat;
+    background-size: cover;
+    cursor: pointer;
+}
+.my_info.on{
+    background: url(../../images/common/user_img_on.png) 0 0 no-repeat;
+    background-size: cover;
+}
+
+.close_btn{
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 50%;
+    right: 5%;
+    transform: translateY(-50%);
+    background: url(../../images/common/icon_close.png) 0 0 no-repeat;
+    background-size: contain;
+    cursor: pointer;
+}
+
+.back_btn{
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 50%;
+    left: 5%;
+    transform: translateY(-50%);
+    background: url(../../images/common/icon_back.png) 0 0 no-repeat;
+    background-size: contain;
+    cursor: pointer;
+}
+.set_btn{
+    display: block;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 50%;
+    right: 5%;
+    transform: translateY(-50%);
+    background: url(../../images/common/icon_set.svg) 0 0 no-repeat;
+    background-size: contain;
+    cursor: pointer;
+}
+
+#header .title{
+    text-align: center;
+    line-height: 50px;
+    font-size:16px;
+}   

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+  <g id="그룹_4232" data-name="그룹 4232" transform="translate(-7324 -8040)">
+    <rect id="사각형_1147" data-name="사각형 1147" width="20" height="20" transform="translate(7324 8040)" fill="none"/>
+    <g id="그룹_4231" data-name="그룹 4231" transform="translate(7002 8018)">
+      <g id="그룹_4229" data-name="그룹 4229" transform="translate(-7000 -9869)">
+        <path id="패스_2499" data-name="패스 2499" d="M.489-5.031H2.02L2.946-1.1h0l.865-3.931H5.342V0H4.365V-4.208h0L3.428,0H2.4L1.466-4.208h0V0H.489ZM6.979-1.589h0a1.118,1.118,0,0,0,.26.694.809.809,0,0,0,.6.212.624.624,0,0,0,.656-.424H9.505a1.789,1.789,0,0,1-.643.923A1.818,1.818,0,0,1,7.82.1a1.771,1.771,0,0,1-1.347-.5A2.057,2.057,0,0,1,6-1.873a2.055,2.055,0,0,1,.465-1.412,1.653,1.653,0,0,1,1.313-.53q1.774,0,1.774,2.105v.12H6.979Zm.031-.639H8.538q-.109-.752-.776-.752a.679.679,0,0,0-.513.188A1.052,1.052,0,0,0,7.01-2.229ZM7.79-4.2ZM7.831,0Z" transform="translate(7327 9908.904)" fill="#8d9fab"/>
+        <g id="그룹_4227" data-name="그룹 4227" transform="translate(7324 9893)">
+          <path id="패스_2449" data-name="패스 2449" d="M101.333,325.935v-1.979a3.979,3.979,0,0,0-4-3.957h-8a3.979,3.979,0,0,0-4,3.957v1.979" transform="translate(-85.333 -310.031)" fill="none" stroke="#8d9fab" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+          <ellipse id="타원_284" data-name="타원 284" cx="4" cy="3.933" rx="4" ry="3.933" transform="translate(4)" fill="#8d9fab" stroke="#8d9fab" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

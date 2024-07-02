@@ -1,0 +1,606 @@
+
+<?php
+include 'inc_head.php';
+include_once	"../lib/db.class.php";
+
+if ( !$jb_login )
+	header('Location: ./login.html');
+
+$DB_LP = new DBCLASS;
+$email = $_SESSION[ 'username' ];
+
+
+$qry = "select * from coinprice;";
+$DB_LP->select($qry);
+
+$row = $DB_LP->get_data();
+
+$BTCP = $row->BTC;
+$ETHP = $row->ETH;
+$XRPP = $row->XRP;
+$GOTGP = $row->GOTG;
+$NFTDP = $row->NFTD;
+
+$GOTGP = 1;
+
+$BTCS = $row->BTC_S;
+$ETHS = $row->ETH_S;
+$XRPS = $row->XRP_S;
+
+$BTCR = number_format( ( $BTCP - $BTCS ) / $BTCS * 100, 2);
+$ETHR = number_format(( $ETHP - $ETHS ) / $ETHS * 100 , 2);
+$XRPR = number_format(( $XRPP - $XRPS ) / $XRPS * 100, 2);
+
+
+
+$qry = "select * from user_info where email = '$email';";
+$DB_LP->select($qry);
+
+$row = $DB_LP->get_data();
+$no = $row->no;
+
+$BTC = $row->BTC;
+$ETH = $row->ETH;
+$XRP = $row->XRP;
+$GOTG = $row->GOTG;
+$NFTD = $row->NFTD;
+
+$total_krw = $BTC * $BTCP + $ETH * $ETHP + $XRP * $XRPP + $GOTG * $GOTGP + $NFTD * $NFTDP;
+
+$today = date("Y-m-d");
+
+
+$qry = "select * from user_txlog order by rdate limit 10;";
+
+$DB_LP->select($qry);
+
+//echo $qry;
+
+
+$sum = 0;
+
+$idx = 0;
+
+$tx_arr = array();
+
+while($row = $DB_LP->get_data())
+{
+
+	$rdate = $row->rdate;
+	$no = $row->no;
+	$site = $row->site;
+	$buyer = $row->buyer;
+	$amount = $row->amount;
+	$etc = $row->etc;
+
+	$tx_arr['rdate'][$idx] = $rdate;
+	$tx_arr['no'][$idx] = $no;
+	$tx_arr['site'][$idx] = $site;
+	$tx_arr['buyer'][$idx] = $buyer;
+	$tx_arr['amount'][$idx] = $amount;
+	$tx_arr['etc'][$idx] = $etc;
+
+	if ( $buyer == 'coin01' )
+	{
+		$tx_arr['bankname'][$idx] = "하나은행";
+		$tx_arr['bankacc'][$idx] = "2456-4531325-456";
+		$tx_arr['name'][$idx] = "김호성";
+	}
+
+	if ( $buyer == 'coin02' )
+	{
+		$tx_arr['bankname'][$idx] = "하나은행";
+		$tx_arr['bankacc'][$idx] = "86545-4554-565";
+		$tx_arr['name'][$idx] = "전효성";
+	}
+
+	if ( $buyer == 'coin03' )
+	{
+		$tx_arr['bankname'][$idx] = "기업은행";
+		$tx_arr['bankacc'][$idx] = "110-456-45622";
+		$tx_arr['name'][$idx] = "박동주";
+	}
+
+	if ( $buyer == 'coin04' )
+	{
+		$tx_arr['bankname'][$idx] = "케이뱅크";
+		$tx_arr['bankacc'][$idx] = "54-5646544-454";
+		$tx_arr['name'][$idx] = "조준희";
+	}
+
+	if ( $buyer == 'coin05' )
+	{
+		$tx_arr['bankname'][$idx] = "우리은행";
+		$tx_arr['bankacc'][$idx] = "110-4556-4444";
+		$tx_arr['name'][$idx] = "정주희";
+	}
+	else
+	{
+		$tx_arr['bankname'][$idx] = "국민은행";
+		$tx_arr['bankacc'][$idx] = "490704-445-55645";
+		$tx_arr['name'][$idx] = "소명준";
+
+	}
+
+	$tx_arr['seller'][$idx] = $row->seller;
+
+	$sum = $sum + $amount;
+
+	$idx++;
+
+}
+
+
+
+$DB_LP->close();
+
+
+?>
+
+<!--
+=========================================================
+* Paper Dashboard 2 - v2.0.1
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/paper-dashboard-2
+* Copyright 2020 Creative Tim (https://www.creative-tim.com)
+
+Coded by www.creative-tim.com
+
+ =========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="./assets/img/favicon.png">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>
+    BIT-DEX Admin Dashboard
+  </title>
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+  <!-- CSS Files -->
+  <link href="./assets/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="./assets/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
+  <!-- CSS Just for demo purpose, don't include it in your project -->
+  <link href="./assets/demo/demo.css" rel="stylesheet" />
+</head>
+
+<body class="">
+  <div class="wrapper ">
+    <div class="sidebar" data-color="white" data-active-color="danger">
+      <div class="logo">
+        <a href="#" class="simple-text logo-mini">
+          <div class="logo-image-small">
+          </div>
+          <!-- <p>CT</p> -->
+        </a>
+        <a href="#" class="simple-text logo-normal">
+          BIT-DEX Admin
+          <!-- <div class="logo-image-big">
+            <img src="./assets/img/logo-big.png">
+          </div> -->
+        </a>
+      </div>
+      <div class="sidebar-wrapper">
+        <ul class="nav">
+          <li class="active ">
+            <a href="./dashboard.html">
+              <i class="nc-icon nc-bank"></i>
+              <p>DashBoard</p>
+            </a>
+          </li>
+          <li>
+            <a href="./buylog.html">
+              <i class="nc-icon nc-tile-56"></i>
+              <p>구매 내역</p>
+            </a>
+          </li>
+          <li>
+            <a href="./buylog2.html">
+			   <i class="nc-icon nc-bell-55"></i>
+              <p>지갑전송내역(환전)</p>
+            </a>
+          </li>
+          <li>
+            <a href="./selllog.html">
+              <i class="nc-icon nc-diamond"></i>
+              <p>판매 내역</p>
+            </a>
+          </li>
+          <li>
+            <a href="./agency.html">
+              <i class="nc-icon nc-pin-3"></i>
+              <p>파트너 관리</p>
+            </a>
+          </li>
+          <li>
+            <a href="./buyer.html">
+              <i class="nc-icon nc-single-02"></i>
+              <p>회원 관리</p>
+            </a>
+          </li>
+          <li>
+            <a href="./coin.html">
+              <i class="nc-icon nc-spaceship"></i>
+              <p>정산</p>
+            </a>
+          </li>
+          <li>
+            <a href="./unprocessed.html" >
+              <i class="nc-icon nc-bank"></i>
+              <p>미처리 내역</p>
+            </a>
+          </li>
+          <li>
+            <a href="./fee_config.html" onclick = "window.open(this.href, '_blank', 'width=400, height=800, left=100, top=50'); return false">
+              <i class="nc-icon nc-bank"></i>
+              <p>수수료 설정</p>
+            </a>
+          </li>
+          <li>
+            <a href="./login.html">
+              <i class="nc-icon nc-app"></i>
+              <p>로그아웃</p>
+            </a>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+    <div class="main-panel">
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
+        <div class="container-fluid">
+          <div class="navbar-wrapper">
+            <div class="navbar-toggle">
+              <button type="button" class="navbar-toggler">
+                <span class="navbar-toggler-bar bar1"></span>
+                <span class="navbar-toggler-bar bar2"></span>
+                <span class="navbar-toggler-bar bar3"></span>
+              </button>
+            </div>
+            <a class="navbar-brand" href="javascript:;">BIT-DEX Dashboard</a>
+          </div>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-end" id="navigation">
+            <form>
+              <div class="input-group no-border">
+                <input type="text" value="" class="form-control" placeholder="Search...">
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <i class="nc-icon nc-zoom-split"></i>
+                  </div>
+                </div>
+              </div>
+            </form>
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link btn-magnify" href="javascript:;">
+                  <i class="nc-icon nc-layout-11"></i>
+                  <p>
+                    <span class="d-lg-none d-md-block">Stats</span>
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item btn-rotate dropdown">
+                <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="nc-icon nc-bell-55"></i>
+                  <p>
+                    <span class="d-lg-none d-md-block">Some Actions</span>
+                  </p>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="dropdown-item" href="#">Action</a>
+                  <a class="dropdown-item" href="#">Another action</a>
+                  <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link btn-rotate" href="javascript:;">
+                  <i class="nc-icon nc-settings-gear-65"></i>
+                  <p>
+                    <span class="d-lg-none d-md-block">Account</span>
+                  </p>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+     
+      <!-- End Navbar -->
+   <!---   <div class="content">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-body">
+                <div class="table-responsive">
+				<table class="table">
+                    <thead class=" text-primary" align = "center">
+                      <th align = "center">
+                        No.
+                      </th>
+                      <th align = "center">
+                        날짜
+                      </th>
+                      <th align = "center">
+                        아이디
+                      </th>
+                      <th align = "center">
+                        은행명
+                      </th>
+                      <th align = "center">
+                        계좌번호
+                      </th>
+                      <th align = "center">
+                        이름
+                      </th>
+                      <th align = "center">
+                        트레이더
+                      </th>
+                      <th align = "center">
+                        금액
+                      </th>
+                      <th align = "center">
+                        확인
+                      </th>
+                    </thead>
+
+					<?php 
+
+
+					?>
+					<?php
+						for ( $i = 0; $i < $idx; $i++ )
+						{
+					?>
+                   <tbody>
+                      <tr align = "center">
+                        <td>
+								<?php echo $i+1; ?>
+                        </td>
+                        <td>
+								<?php echo $tx_arr['rdate'][$i]; ?>
+                        </td>
+
+                        <td>
+								<?php echo $tx_arr['bankname'][$i]; ?>
+                        </td>
+                        <td>
+								<?php echo $tx_arr['bankacc'][$i]; ?>
+                        </td>
+                        <td>
+								<?php echo $tx_arr['name'][$i]; ?>
+
+                        </td>
+
+                        <td>
+								<?php echo $tx_arr['buyer'][$i]; ?>
+                        </td>
+                        <td>
+								<?php echo $tx_arr['seller'][$i]; ?>
+                        </td>
+                        <td>
+								<?php echo number_format($tx_arr['amount'][$i]); ?>
+                        </td>
+						<td>
+								<?php 
+									if ( $tx_arr['etc'][$i] == 0 )
+										echo "<font color = 'red'>입금대기</font>";
+									else if ( $tx_arr['etc'][$i] == 2 ||  $tx_arr['etc'][$i] == 3)
+										echo "<font color = 'blue'>입금보류</font>";
+									else if ( $tx_arr['etc'][$i] == 4 )
+										echo "<font color = 'green'>반송처리</font>";
+									else
+										echo "거래완료";
+								?>
+									
+
+					
+					
+						</td>
+                      </tr>
+                    </tbody>
+
+					<?php
+						}
+					?>
+
+                   <thead class=" text-primary" align = "center">
+                      <th align = "center">
+                        
+                      </th>
+                      <th align = "center">
+
+                      </th>
+					  <th align = "center">
+
+                      </th>
+					  <th align = "center">
+
+                      </th>
+                      <th align = "center">
+
+                      </th>
+                      <th align = "center">
+					  합계
+                      </th>
+                      <th align = "center">
+                        <?php echo number_format($sum); ?>
+                      </th>
+                      <th align = "center">
+
+                      </th>
+                    </thead>
+
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+		</div>
+
+      <div class="content">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <h4 class="card-title"> 최근 가입한 사이트</h4>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead class=" text-primary">
+                      <th>
+                        일시
+                      </th>
+                      <th>
+                        사이트
+                      </th>
+                      <th>
+                        회원명
+                      </th>
+                      <th>
+                        연락처
+                      </th>
+                      <th>
+                        요율
+                      </th>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          2021-09-26 14:25
+                        </td>
+                        <td>
+                          Royal Chrome
+                        </td>
+                        <td>
+                          이재진
+                        </td>
+                        <td>
+                          010-2222-0000
+                        </td>
+                        <td>
+                          0.8
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+		</div>
+
+
+      <div class="content">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <h4 class="card-title"> 최근 가입한 회원</h4>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead class=" text-primary">
+                      <th>
+                        일시
+                      </th>
+                      <th>
+                        이름
+                      </th>
+                      <th>
+                        회원 종류
+                      </th>
+                      <th>
+                        연락처
+                      </th>
+                      <th>
+                        계좌번호
+                      </th>
+                      <th>
+                        사이트
+                      </th>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          2021-09-26 14:25
+                        </td>
+                        <td>
+                          김재준
+                        </td>
+                        <td>
+                          구매회원
+                        </td>
+                        <td>
+                          010-2222-5555
+                        </td>
+                        <td>
+                          카카오뱅크 3333-33333-3333
+                        </td>
+                        <td>
+                          Royal
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+		</div>
+-->
+      <footer class="footer footer-black  footer-white ">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="credits ml-auto">
+              <span class="copyright">
+                © <script>
+                  document.write(new Date().getFullYear())
+                </script>, made with <i class="fa fa-heart heart"></i> by Bit-Dex4
+              </span>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+  <!--   Core JS Files   -->
+  <script src="./assets/js/core/jquery.min.js"></script>
+  <script src="./assets/js/core/popper.min.js"></script>
+  <script src="./assets/js/core/bootstrap.min.js"></script>
+  <script src="./assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <!--  Google Maps Plugin    -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+  <!-- Chart JS -->
+  <script src="./assets/js/plugins/chartjs.min.js"></script>
+  <!--  Notifications Plugin    -->
+  <script src="./assets/js/plugins/bootstrap-notify.js"></script>
+  <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="./assets/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script><!-- Paper Dashboard DEMO methods, don't include it in your project! -->
+  <script src="./assets/demo/demo.js"></script>
+  <script>
+    $(document).ready(function() {
+      // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
+      demo.initChartsPages();
+    });
+  </script>
+</body>
+
+</html>

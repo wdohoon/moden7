@@ -1,0 +1,58 @@
+<?php
+include '../inc_head.php';
+include_once	"../lib/db.class.php";
+
+if ( !$jb_login )
+	header('Location: ../login.html');
+
+$DB_LP = new DBCLASS;
+
+$idx = $_GET['idx'];
+$del = $_GET['del'];
+
+if($del == "1")
+{
+	$qry = "UPDATE deposit_log SET checked = 1 WHERE idx = $idx";
+	$DB_LP->select($qry); 
+	
+	$prevPage = $_SERVER['HTTP_REFERER'];
+	header('location:'.$prevPage);
+	exit;	
+}
+
+
+$qry = "SELECT * FROM `deposit_log` WHERE checked=0 AND idx=$idx;";
+$DB_LP->select($qry);
+$row = $DB_LP->get_data();
+$coinAmt = $row->amt;
+$email = $row->email;
+
+echo $coinAmt . $email;
+
+//$qry = "update user_info set GOTG = GOTG + '$knAmt' where email = '$email';";
+$qry = "update user_info set GOTG = GOTG - '$coinAmt' where email = 'jangkun1201@nate.com';";
+$DB_LP->select($qry);
+
+$qry = "update user_info set GOTG = GOTG + '$coinAmt' where email = '$email';";
+$DB_LP->select($qry);
+
+// $qry = "insert into adm_buylog values ( '0', '$rdate', '$email', '$knAmt', '$fee', 'USDC-G', '$coinAmt', '$coinPrice', '$coinFee', '$coinAddr',  '$USDCG_PRICE', '$referral','1');";
+// $DB_LP->select($qry);
+
+$rdate = date('Y-m-d H:i:s');
+$coinAddr = "";
+////
+$qry = "INSERT INTO tx_log(email, rdate, txlog, coin, type, amount, act) VALUES ('$email', '$rdate', 'bit-dex', 'GotG', 'IN', '$coinAmt', 0)";
+$DB_LP->select($qry);
+$qry = "INSERT INTO tx_log(email, rdate, txlog, coin, type, amount, act) VALUES ('bit-dex', '$rdate', '$coinAddr', 'GotG', 'OUT', '$coinAmt', 0)";
+$DB_LP->select($qry);
+$qry = "INSERT INTO tx_log(email, rdate, txlog, coin, type, amount, act) VALUES ('$coinAddr', '$rdate', '$email', 'GotG', 'IN', '$coinAmt', 0)";
+$DB_LP->select($qry); 
+
+$qry = "UPDATE deposit_log SET checked = 1 WHERE idx = $idx";
+$DB_LP->select($qry); 
+
+$prevPage = $_SERVER['HTTP_REFERER'];
+header('location:'.$prevPage);
+
+?>

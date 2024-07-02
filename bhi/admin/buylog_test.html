@@ -1,0 +1,615 @@
+
+<?php
+include '../inc_head.php';
+include_once	"../lib/db.class.php";
+include_once	"../lib/db.class2.php";
+
+if ( !$jb_login )
+	header('Location: ../login.html');
+
+$DB_LP = new DBCLASS;
+$DB_LP2 = new DBCLASS2;
+$email = $_SESSION[ 'username' ];
+$cate = $_GET['cate'];
+$start = $_GET['start'];
+$end = $_GET['end'];
+
+$end2 = date('Y-m-d',strtotime($end."+1 day"));
+
+$err = $_GET['err'];
+
+if ( $err == 1 )
+{
+		echo "<script>alert('매칭에 실패했습니다. 코인이 부족합니다.');</script>";
+}
+
+
+$qry = "select * from coinprice;";
+$DB_LP->select($qry);
+
+$row = $DB_LP->get_data();
+
+$BTCP = $row->BTC;
+$ETHP = $row->ETH;
+$XRPP = $row->XRP;
+$GOTGP = $row->GOTG;
+$NFTDP = $row->NFTD;
+
+
+$BTCS = $row->BTC_S;
+$ETHS = $row->ETH_S;
+$XRPS = $row->XRP_S;
+
+$BTCR = number_format( ( $BTCP - $BTCS ) / $BTCS * 100, 2);
+$ETHR = number_format(( $ETHP - $ETHS ) / $ETHS * 100 , 2);
+$XRPR = number_format(( $XRPP - $XRPS ) / $XRPS * 100, 2);
+
+
+
+$qry = "select * from user_info where email = '$email';";
+
+
+
+$DB_LP->select($qry);
+
+$row = $DB_LP->get_data();
+$no = $row->no;
+
+$BTC = $row->BTC;
+$ETH = $row->ETH;
+$XRP = $row->XRP;
+$GOTG = $row->GOTG;
+$NFTD = $row->NFTD;
+
+$total_krw = $BTC * $BTCP + $ETH * $ETHP + $XRP * $XRPP + $GOTG * $GOTGP + $NFTD * $NFTDP;
+
+/*
+//////////////////////////////
+// 페이지 변수 가져오기
+if(!isset($_GET['page']))
+    $page=1; // 페이지가 없으면 1로 정한다 
+else
+    $page = $_GET['page'];
+
+if ( $cate == 0 ) 
+	$qry = "select count(*) as cnt from adm_buylog order by no desc;";
+else if ( $cate == 1 )
+	$qry = "select count(*) as cnt from adm_buylog where etc = 1 order by no desc;";
+else if ( $cate == 2 )
+	$qry = "select count(*) as cnt from adm_buylog where etc = 4 order by no desc;";
+
+if ( $start != 0 )
+{
+	$qry = "select count(*) as cnt from adm_buylog where rdate >= '$start' and rdate <= '$end2' order by no desc;";
+}
+else
+{
+	$start =  date ( 'Y-m-d' );
+	$end = date('Y-m-d');
+	$qry = "select count(*) as cnt from adm_buylog where rdate >= '$start' and rdate <= '$end2' order by no desc;";
+}
+
+$DB_LP->select($qry);
+$row = $DB_LP->get_data();
+$total = $row->cnt;
+
+$limite = 5; //한페이지당 출력될 게시물수 
+$page_num = 5; // 한 페이지당 출력될 링크수 
+
+$total_page = intval(($total-1) / $limite)+1; // 총 페이지수를 구해온다 
+$first = ($page-1)*$limite; // 뽑아올 게시물 [처음] 
+$last = $limite; // 뽑아올 게시물 [끝] 
+
+// 뽑아올 게시물[끝] : 총 게시물 수가 한페이지당 출력될 게시물수보다 적으면 총 게시물수를 뽑아올 게시물[끝] 으로 정한다 
+if($total < $last)
+    $last = $total; 
+// 뽑아올 게시물 [처음]~뽑아올 게시물 [끝] 구한값으로 한페이지에 글을 뽑아 온다 
+$limit = "limit $first,$last"; 
+*/
+
+/////////////////////////////////////////////////////////
+if ( $cate == 0 ) 
+	$qry = "select * from adm_buylog order by no desc;";
+else if ( $cate == 1 )
+	$qry = "select * from adm_buylog where etc = 1 order by no desc;";
+else if ( $cate == 2 )
+	$qry = "select * from adm_buylog where etc = 4 order by no desc;";
+
+if ( $start != 0 )
+{
+	$qry = "select * from adm_buylog where rdate >= '$start' and rdate <= '$end2' order by no desc;";
+
+}
+else
+{
+	$start =  date ( 'Y-m-d' );
+	$end = date('Y-m-d');
+
+	$qry = "select * from adm_buylog where rdate >= '$start' and rdate <= '$end2' order by no desc;";
+    
+}
+
+
+
+
+$DB_LP->select($qry);
+
+
+$sum = 0;
+
+$idx = 0;
+
+$tx_arr = array();
+
+$sum_deposit = 0;
+$sum_fee = 0;
+$sum_coinamt =0;
+$sum_coinfee = 0;
+
+while($row = $DB_LP->get_data())
+{
+	$no = $row->no;
+	$rdate = $row->rdate;
+	$uid = $row->uid;
+
+	$qry = "select * from user_account where email = '$uid';";
+	$DB_LP2->select($qry);
+	$row2 = $DB_LP2->get_data();
+	$name = $row2->name;
+	$no2 = $row2->no;
+
+  echo $qry; 
+  echo $row2->name . "\n";
+
+	$deposit = $row->deposit;
+	$fee = $row->fee;
+	$coin_type = $row->coin_type;
+	$coin_amount = $row->coin_amount;
+	$coin_price = $row->coin_price;
+	$coin_fee = $row->coin_fee;
+	$coin_addr = $row->coin_addr;
+	$cur_rate = $row->cur_rate;
+	$referral = $row->referral;
+	$confirm = $row->confirm;
+
+	$qry = "select * from ethaddr where no = '$no2';";
+	$DB_LP2->select($qry);
+	$row2 = $DB_LP2->get_data();
+	$coin_addr = $row2->ethaddr;
+
+	$amount = $row->amount;
+	$etc = $row->etc;
+
+	if ( $referral )
+	{
+		$tx_arr['no'][$idx] = $no;
+		$tx_arr['rdate'][$idx] = $rdate;
+		$tx_arr['uid'][$idx] = $uid;
+		$tx_arr['name'][$idx] = $name;
+		$tx_arr['deposit'][$idx] = $deposit;
+		$tx_arr['fee'][$idx] = $fee;
+		$tx_arr['coin_type'][$idx] = $coin_type;
+		$tx_arr['coin_amount'][$idx] = $coin_amount;
+		$tx_arr['coin_price'][$idx] = $coin_price;
+		$tx_arr['coin_fee'][$idx] = $coin_fee;
+		$tx_arr['coin_addr'][$idx] = $coin_addr;
+		$tx_arr['cur_rate'][$idx] = $cur_rate;
+		$tx_arr['referral'][$idx] = $referral;
+		$tx_arr['confirm'][$idx] = $confirm;
+
+		$sum_deposit = $sum_deposit + $deposit;
+		$sum_fee = $sum_fee + $fee;
+
+		$sum_coinamt = $sum_coinamt + $coin_amount;
+		$sum_coinfee = $sum_coinfee + $coin_fee;
+
+		$idx++;
+	}
+
+}
+
+
+
+$qry = "select * from adm_buylog where etc = 0 and seller = '0';";
+$real_cnt = $DB_LP->select($qry);
+
+if ( $real_cnt > 0 )
+{
+	$myAudioFile = "dingdong.wav";
+	echo "<iframe src='./dingdong.wav' allow='autoplay' id='audio' style='display:none'></iframe>";
+
+}
+
+$qry = "select * from adm_buylog where etc = 0;";
+$dwait_cnt = $DB_LP->select($qry);
+
+$qry = "select * from adm_buylog;";
+$mylist_cnt = $DB_LP->select($qry);
+
+$qry = "select * from adm_buylog where ( etc = 2 or etc = 3 );";
+$wait_cnt = $DB_LP->select($qry);
+
+
+
+$DB_LP2->close();
+$DB_LP->close();
+
+
+?>
+
+
+<!--
+=========================================================
+* Paper Dashboard 2 - v2.0.1
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/paper-dashboard-2
+* Copyright 2020 Creative Tim (https://www.creative-tim.com)
+
+Coded by www.creative-tim.com
+
+ =========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="./assets/img/favicon.png">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>
+    BIT-DEX Admin Dashboard
+  </title>
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+  <!-- CSS Files -->
+  <link href="./assets/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="./assets/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
+  <!-- CSS Just for demo purpose, don't include it in your project -->
+  <link href="./assets/demo/demo.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+
+   <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" /> 
+   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script> 
+   <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+   
+   <script language="javascript">
+	  function showPopup() { window.open("../change_rate.html", "a", "width=400, height=400, left=100, top=50"); }
+	  function showPopup2() { window.open("../signup_agency.html", "a", "width=400, height=800, left=100, top=50"); }
+      function dateSearch() {
+			  var date1 = document.getElementById( "date1" ).value;
+			  var date2 = document.getElementById( "date2" ).value;
+
+			
+			  const url = "buylog.html?start=" + date1 + "&end=" + date2;
+			  location.href = url;
+		}
+  </script>
+
+
+</head>
+
+<body class="">
+  <div class="wrapper ">
+    <div class="sidebar" data-color="white" data-active-color="danger">
+      <div class="logo">
+        <a href="#" class="simple-text logo-mini">
+          <div class="logo-image-small">
+
+          </div>
+          <!-- <p>CT</p> -->
+        </a>
+        <a href="#" class="simple-text logo-normal">
+          BIT-DEX Admin
+          <!-- <div class="logo-image-big">
+            <img src="./assets/img/logo-big.png">
+          </div> -->
+        </a>
+      </div>
+	 <div class="sidebar-wrapper">
+		<ul class="nav">
+          <li >
+            <a href="./dashboard.html">
+              <i class="nc-icon nc-bank"></i>
+              <p>DashBoard</p>
+            </a>
+          </li>
+          <li class="active ">
+            <a href="./buylog.html">
+              <i class="nc-icon nc-tile-56"></i>
+              <p>구매 내역</p>
+            </a>
+          </li>
+          <li>
+            <a href="./buylog2.html">
+			   <i class="nc-icon nc-bell-55"></i>
+              <p>지갑전송내역(환전)</p>
+            </a>
+          </li>
+          <li>
+            <a href="./selllog.html">
+              <i class="nc-icon nc-diamond"></i>
+              <p>판매 내역</p>
+            </a>
+          </li>
+          <li>
+            <a href="./agency.html">
+              <i class="nc-icon nc-pin-3"></i>
+              <p>파트너 관리</p>
+            </a>
+          </li>
+          <li>
+            <a href="./buyer.html">
+              <i class="nc-icon nc-single-02"></i>
+              <p>회원 관리</p>
+            </a>
+          </li>
+          <li>
+            <a href="./coin.html">
+              <i class="nc-icon nc-spaceship"></i>
+              <p>정산</p>
+            </a>
+          </li>
+          <li>
+            <a href="./unprocessed.html" >
+              <i class="nc-icon nc-bank"></i>
+              <p>미처리 내역</p>
+            </a>
+          </li>
+          <li>
+            <a href="./fee_config.html" onclick = "window.open(this.href, '_blank', 'width=400, height=800, left=100, top=50'); return false">
+              <i class="nc-icon nc-bank"></i>
+              <p>수수료 설정</p>
+            </a>
+          </li>
+          <li>
+            <a href="./login.html">
+              <i class="nc-icon nc-app"></i>
+              <p>로그아웃</p>
+            </a>
+          </li>
+
+		</ul>
+	 </div>
+    </div>
+ <div class="main-panel">
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
+        <div class="container-fluid">
+          <div class="navbar-wrapper">
+            <div class="navbar-toggle">
+              <button type="button" class="navbar-toggler">
+                <span class="navbar-toggler-bar bar1"></span>
+                <span class="navbar-toggler-bar bar2"></span>
+                <span class="navbar-toggler-bar bar3"></span>
+              </button>
+            </div>
+            <a class="navbar-brand" href="javascript:;"></a>
+          </div>
+		                <form>
+              <div class="input-group no-border">
+                <input type="text" value="" class="form-control" placeholder="Search...">
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <i class="nc-icon nc-zoom-split"></i>
+                  </div>
+                </div>
+              </div>
+            </form>
+          <div class="collapse navbar-collapse justify-content-end" id="navigation">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+				<a class="nav-link btn-magnify" href="javascript:dateSearch();">
+	               <p><input type="date" id = "date1" value = "<?php echo $start;?>"></p> ~ <p><input type="date" id = "date2" value = "<?php echo $end;?>"></p>
+				  <p>
+				  <input type="button" id="id_check" class="btn btn-outline-primary" value="검색" onclick="dateSearch();" />
+                  </p>
+                </a>
+              </li>
+
+              <li class="nav-item btn-rotate dropdown">
+                <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="nc-icon nc-bell-55"></i>
+                  <p>
+                    <span class="d-lg-none d-md-block">Some Actions</span>
+                  </p>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="dropdown-item" href="#">소리듣기</a>
+                  <a class="dropdown-item" href="#">무음</a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+   
+      <!-- End Navbar -->
+      <div class="content">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <h4 class="card-title">구매내역</h4>
+<!---					<input type="button" id="id_check" class="btn btn-outline-secondary" value="전체" onclick="location.href='tradelog.html?cate=0'" />
+					<input type="button" id="id_check" class="btn btn-outline-secondary" value="구매" onclick="location.href='tradelog.html?cate=1'" />
+					<input type="button" id="id_check" class="btn btn-outline-secondary" value="판매" onclick="location.href='tradelog.html?cate=2'" /> --->
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+				<table class="table">
+					<?php 
+						echo "입금 합계 : ".$sum_deposit." 원  ";
+						echo "수수료 합계 : ".$sum_fee." 원  ";
+						echo "코인 합계 : ".$sum_coinamt." 개  ";
+						echo "코인수수료 합계 : ".$sum_coinfee." 개  ";
+
+
+					?>
+                    <thead class=" text-primary" align = "center">
+                      <th align = "center">
+                        No.
+                      </th>
+                      <th align = "center">
+                        날짜
+                      </th>
+                      <th align = "center">
+                        아이디
+                      </th>
+                     <th align = "center">
+                        이름
+                      </th>
+                      <th align = "center">
+                        입금금액
+                      </th>
+                      <th align = "center">
+                        수수료
+                      </th>
+                      <th align = "center">
+                        거래코인
+                      </th>
+                      <th align = "center">
+                        입금코인수량
+                      </th>
+                      <th align = "center">
+                        수수료코인수량
+                      </th>
+
+                      <th align = "center">
+                        지갑주소
+                      </th>
+                      <th align = "center">
+                        적용환율
+                      </th>
+                      <th align = "center">
+                        레퍼럴
+                      </th>
+                      <th align = "center">
+                        확인
+                      </th>
+                    </thead>
+
+					<?php
+						for ( $i = 0; $i < $idx; $i++ )
+						{
+					?>
+                   <tbody>
+                      <tr align = "center">
+                        <td>
+								<?php echo $i+1; ?>
+                        </td>
+                        <td>
+								<?php echo $tx_arr['rdate'][$i]; ?>
+                        </td>
+
+                        <td>
+								<?php echo $tx_arr['uid'][$i]; ?>
+                        </td>
+
+                        <td>
+								<?php echo $tx_arr['name'][$i]; ?>
+                        </td>
+
+                        <td>
+								<?php echo number_format($tx_arr['deposit'][$i]); ?>
+                        </td>
+                        <td>
+								<?php echo $tx_arr['fee'][$i]; ?>
+                        </td>
+
+                        <td>
+								<?php echo $tx_arr['coin_type'][$i]; ?>
+                        </td>
+                        <td>
+								<?php echo number_format($tx_arr['coin_amount'][$i],2); ?>
+                        </td>
+                        <td>
+								<?php echo number_format($tx_arr['coin_fee'][$i],2); ?>
+                        </td>
+                        <td>
+								<?php echo $tx_arr['coin_addr'][$i]; ?>
+                        </td>
+                        <td>
+								<?php echo number_format($tx_arr['cur_rate'][$i]); ?>
+                        </td>
+                        <td>
+								<?php echo $tx_arr['referral'][$i]; ?>
+                        </td>
+						<td>
+								<?php 
+									if ( $tx_arr['confirm'][$i] == 0 )
+										echo "<font color = 'red'>입금대기</font>";
+									else if ( $tx_arr['confirm'][$i] == 3 ||  $tx_arr['confirm'][$i] == 4)
+										echo "<font color = 'blue'>입금보류</font>";
+									else if ( $tx_arr['confirm'][$i] == 5 )
+										echo "<font color = 'green'>반송처리</font>";
+									else
+										echo "확인";
+								?>
+									
+
+					
+					
+						</td>
+                      </tr>
+                    </tbody>
+
+
+
+
+					<?php
+						}
+					?>
+
+
+
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+		</div>
+
+      <footer class="footer footer-black  footer-white ">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="credits ml-auto">
+              <span class="copyright">
+                ⓒ <script>
+                  document.write(new Date().getFullYear())
+                </script>, made with <i class="fa fa-heart heart"></i> by Pay-G
+              </span>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+  <!--   Core JS Files   -->
+  <script src="./assets/js/core/jquery.min.js"></script>
+  <script src="./assets/js/core/popper.min.js"></script>
+  <script src="./assets/js/core/bootstrap.min.js"></script>
+  <script src="./assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <!--  Google Maps Plugin    -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+  <!-- Chart JS -->
+  <script src="./assets/js/plugins/chartjs.min.js"></script>
+  <!--  Notifications Plugin    -->
+  <script src="./assets/js/plugins/bootstrap-notify.js"></script>
+  <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="./assets/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script><!-- Paper Dashboard DEMO methods, don't include it in your project! -->
+  <script src="./assets/demo/demo.js"></script>
+  <script>
+    $(document).ready(function() {
+      // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
+      demo.initChartsPages();
+    });
+  </script>
+</body>
+
+</html>

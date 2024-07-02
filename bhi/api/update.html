@@ -1,0 +1,116 @@
+<?php
+
+
+
+include '../inc_head.php';
+include_once	"../lib/db.class.php";
+
+
+$DB_LP = new DBCLASS;
+
+
+$url = "13.209.13.17:4180/api/purchases/3600";
+
+$headers = array(
+	"Content-Type: application/json",
+	"Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidGVhbTExIiwiaG9zdF9pcCI6IjEzLjIwOS4xOS4yMjAiLCJkb21haW4iOiJuZnRwaWMiLCJyb2xlIjoiYXBpIiwiaWF0IjoxNjk1Nzk2ODAzLCJleHAiOjE3MjczMzI4MDN9.6YofbO-fhcCkiDQJT9LXQ5b_zM2h302rAvM9_wGaKO4"
+);
+
+
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, $url);
+curl_setopt($ch, CURLOPT_HEADER, false);
+curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
+
+$response = curl_exec($ch);
+
+curl_close($ch);
+
+
+$result = json_decode($response, true);
+
+
+
+$qry = "SELECT * FROM fxinfo;";
+$DB_LP->select($qry);
+$row = $DB_LP->get_data();
+
+$buyPrice = $row->cashbuyPrice;
+
+
+                       
+
+for ( $i = 0; $i <30 ;$i++ )
+{
+	if ( $result[$i]['confirmed_at'] == 0 )
+		break;
+	$rdate = $result[$i]['confirmed_at'];
+	$user_id = $result[$i]['user_id'];
+	$user_name = $result[$i]['user_name'];
+	$trackId = $result[$i]['trackId'];
+	$amount = $result[$i]['amount'];
+	$acc_amount = $result[$i]['acc_amount'];
+
+	$qry = "SELECT * FROM g5_member where mb_id = '$user_id';";
+	$DB_LP->select($qry);
+
+	echo $qry;
+	echo "\r\n";
+
+	$row = $DB_LP->get_data();
+	if ( $row )
+	{
+
+		$qry = "SELECT * FROM nftpic_log where trackID = '$trackId';";
+		$DB_LP->select($qry);
+
+		$row = $DB_LP->get_data();
+		$act = $row->act;
+
+		if( $act == 0 )
+		{
+		
+			$amt = $amount / $buyPrice * 1.005;
+			$qry = "UPDATE g5_member SET mb_13 = mb_13 + $amt where mb_id = '$user_id';";
+			$DB_LP->select($qry);
+
+			echo $qry;
+			echo "\r\n";
+
+			$qry = "INSERT INTO nftpic_log VALUES ('$trackId', '$user_id', '$user_name', '$amount', '$acc_amount', '$rdate', '1')";
+			$DB_LP->select($qry);
+
+			echo $qry;
+			echo "\r\n";
+		}
+	}
+	else
+	{
+		$qry = "INSERT INTO nftpic_log VALUES ('$trackId', '$user_id', '$user_name', '$amount', '$acc_amount', '$rdate', '0')";
+		$DB_LP->select($qry);
+
+		echo $qry;
+
+
+	}
+
+
+	
+
+	echo $qry;
+
+}
+
+
+print_r( $result );
+
+
+
+
+$DB_LP->close();
+
+?>

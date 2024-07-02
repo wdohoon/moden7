@@ -1,0 +1,29 @@
+
+<?php
+include '../inc_head.php';
+include_once	"../lib/db.class.php";
+
+
+$DB_LP = new DBCLASS;
+$no = $_GET['id'];
+
+$qry = "UPDATE sell_log SET act = 1 where no = '$no';";
+
+$DB_LP->select($qry);
+
+$DB_LP->close();
+
+echo "<script>alert( '출금 처리가 완료 되었습니다.' );</script>";
+
+
+
+?>
+
+
+
+<script type='text/javascript'>
+	opener.location.reload();
+     opener=self;
+     setTimeout('self.close()',1000);
+</script>
+

@@ -1,0 +1,143 @@
+
+<?php
+include '../inc_head.php';
+include_once	"../lib/db.class.php";
+
+if ( !$jb_login )
+	header('Location: ../login.html');
+
+$no = $_GET['no'];
+
+$DB_LP = new DBCLASS;
+$email = $_SESSION[ 'username' ];
+
+
+$qry = "select * from user_account where no = '$no';";
+$DB_LP->select($qry);
+$row = $DB_LP->get_data();
+
+$email = $row->email;
+$bank_name = $row->bank_name;
+$bank_account = $row->bank_account;
+$name = $row->bank_owner;
+$phone = "";
+$vbank = $row->v_bank;
+
+$qry = "select * from user_account where no = '$no';";
+$DB_LP->select($qry);
+$row = $DB_LP->get_data();
+
+$coinAddr = $row->ethaddr;
+
+$DB_LP->close();
+
+
+?>
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+	<title>Bit-Dex</title>
+
+	<!-- Google font file. If you want you can change. -->
+	<link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700,900" rel="stylesheet">
+
+	<!-- Fontawesome font file css -->
+	<link rel="stylesheet" type="text/css" href="../css/font-awesome.min.css">
+
+	<!-- Template global css file. Requared all pages -->
+	<link rel="stylesheet" type="text/css" href="../css/global.style.css">
+</head>
+
+
+<body>
+	
+	<div class="wrapper">
+		<div class="wrapper-inline">
+			<!-- Header area start -->
+			<header> <!-- extra class no-background -->
+				<a class="go-back-link" href="javascript:history.back();"><i class="fa fa-arrow-left"></i></a>
+				<h1 class="page-title">회원 상세 정보</h1>
+			</header>
+			<!-- Header area end -->
+			<!-- Page content start -->
+			<main>
+				<div class="container">
+					<div class="form-divider"></div>
+					<p style="text-align: center;">
+						<img src = "http://bhidex.com/img/common/main_logo.png" align = "center">
+					</p>
+					<div class="form-divider"></div>
+
+					<div class="form-row-group with-icons">
+						<form action="join_result3.php" method="post" class="signup-form" id="loginForm">
+							<div class="form-row no-padding">
+								<i class="fa fa-envelope"></i>
+								<input type="email" name="email" class="form-element" placeholder="" value="<?php echo $email;?>" style="color:blue" readonly >								
+							</div>
+							<div class="form-row no-padding">
+								<i class="fa fa-user"></i>
+								<input type="text" name="name" class="form-element" placeholder="" value="<?php echo $bank_name;?>" style="color:blue" readonly >
+							</div>
+							<div class="form-row no-padding">
+								<i class="fa fa-mobile"></i>
+								<input type="text" name="cellphone" class="form-element" placeholder="" value="<?php echo $bank_account;?>" style="color:blue" readonly>
+							</div>
+							<div class="form-row no-padding">
+								<i class="fa fa-id-badge"></i>
+								<input type="text" name="passwd" class="form-element" placeholder="" value="<?php echo $name;?>" style="color:blue" readonly>
+							</div>
+							<div class="form-row no-padding">
+								<i class="fa fa fa-bank"></i>
+								<input type="text" name="bankname" class="form-element" placeholder=""value="<?php echo $phone;?>" style="color:blue" readonly >
+							</div>
+
+							<div class="form-row no-padding">
+								<i class="fa fa fa-bank"></i>
+								<input type="text" name="bankaccount" class="form-element" placeholder="" value="<?php echo $vbank;?>" style="color:blue" readonly>
+							</div>
+
+							<div class="form-row no-padding">
+								<i class="fa fa fa-bank"></i>
+								<input type="text" name="bankowner" class="form-element" placeholder="" value="<?php echo $coinAddr;?>" style="color:blue" readonly>
+							</div>
+						
+						</form>	
+
+					</div>
+
+
+					<div class="form-divider"></div>
+	
+
+
+				</div>
+			</main>
+			<!-- Page content end -->
+		</div>
+	</div>
+
+
+	<!--Page loader DOM Elements. Requared all pages-->
+	<div class="sweet-loader">
+		<div class="box">
+		  	<div class="circle1"></div>
+		  	<div class="circle2"></div>
+		  	<div class="circle3"></div>
+		</div>
+	</div>
+
+	<!-- JQuery library file. requared all pages -->
+	<script src="js/jquery-3.2.1.min.js"></script>
+
+	<!-- Template global script file. requared all pages -->
+	<script src="js/global.script.js"></script>
+
+	
+</body>
+
+</html>

@@ -1,0 +1,236 @@
+<!doctype html>
+<html> 
+<head>
+<meta charset="utf-8">
+<title>OIKONOMIA</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="css/front.css">
+<script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="js/plugin/jquery-ui.min.js"></script>
+<script type="text/javascript" src="js/front.js"></script>
+
+</head>
+<body>
+	
+	<header>
+		<div class="left">
+			<a href="#" class="prev"></a>
+		</div>
+		<h2>회원가입</h2>
+	</header>
+	
+	<div class="register">
+		<div class="inner">
+			<div class="inp-box lang">
+				<div class="lang">
+					<button class="select1 block" id="BtnLangChoice"><img src="img/common/ico_kr.png" alt="한국"> +82  <span>국가를 선택해 주세요.</span></button>
+				</div>
+			</div>
+			<div class="inp-box type2">
+				<input type="tel" class="inp1" value="01034511192">
+				<button class="btn1 f12">인증번호전송</button>
+			</div>
+			<div class="form-desc">*본인확인 절차이며, 다른 용도로 사용되지 않습니다. </div>
+			
+			<div class="inp-box type2">
+				<input type="tel" class="inp1" placeholder="인증번호를 입력해 주세요.">
+				<button class="btn1 f12" disabled>인증하기</button>
+			</div>
+			
+			<div class="mb20"><button class="btn1 block" disabled>다음</button></div>
+			<div class="have">이미 회원이십니까? <a href="#">로그인</a></div>
+		</div>
+	</div>
+	
+	<a href="#" class="btnSample">전송 완료 모달 버튼</a>
+	
+	
+	<!--  국가선택 레이어 -->
+	<div class="layer-lang">
+		<header>
+			<div class="left">
+				<a href="#" class="close"></a>
+			</div>
+			<h2>국가선택</h2>
+		</header>
+		<div class="search">
+			<div class="head">
+				<input type="text" class="inp-srch" placeholder="Search">
+				<button class="btn-srch"></button>
+			</div>
+			<div class="body">
+				<ul>
+					<li>
+						<a href="#">
+							<span><img src="img/common/ico_kr.png"></span>
+							<p>Republic of Korea</p>
+							<em>+82</em>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<span><img src="img/common/ico_kr.png"></span>
+							<p>Republic of Korea</p>
+							<em>+82</em>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<span><img src="img/common/ico_kr.png"></span>
+							<p>Republic of Korea</p>
+							<em>+82</em>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<span><img src="img/common/ico_kr.png"></span>
+							<p>Republic of Korea</p>
+							<em>+82</em>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<span><img src="img/common/ico_kr.png"></span>
+							<p>Republic of Korea</p>
+							<em>+82</em>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<span><img src="img/common/ico_kr.png"></span>
+							<p>Republic of Korea</p>
+							<em>+82</em>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<span><img src="img/common/ico_kr.png"></span>
+							<p>Republic of Korea</p>
+							<em>+82</em>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<span><img src="img/common/ico_kr.png"></span>
+							<p>Republic of Korea</p>
+							<em>+82</em>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<span><img src="img/common/ico_kr.png"></span>
+							<p>Republic of Korea</p>
+							<em>+982</em>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<span><img src="img/common/ico_kr.png"></span>
+							<p>Republic of Korea</p>
+							<em>+82</em>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<span><img src="img/common/ico_kr.png"></span>
+							<p>Republic of Korea</p>
+							<em>+82</em>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<span><img src="img/common/ico_kr.png"></span>
+							<p>Republic of Korea</p>
+							<em>+82</em>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<span><img src="img/common/ico_kr.png"></span>
+							<p>Republic of Korea</p>
+							<em>+82</em>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<span><img src="img/common/ico_kr.png"></span>
+							<p>Republic of Korea</p>
+							<em>+82</em>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!--  // 국가선택 레이어 -->
+	
+	
+	<div class="modal" id="modalPin">
+		<div class="modal-dialog" style="max-width:800px">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5>알림</h5>
+					<button class="close" data-dismiss="modal"></button>
+				</div>
+				<div class="modal-body">
+					<div class="modal-logout mb15">
+						<strong>전송 하시겠습니까?</strong>
+						<p class="txt2">전송하시려는 자산과 금액이 확실하신지 확인해 주세요.</p>
+					</div>
+					
+					<div class="modal-pin">
+						<div class="t3">핀 번호</div>
+						<div class=""><input type="text" class="inp small" style="width:100%" placeholder="4자리 핀번호를 입력해 주세요."></div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button class="btn1 block btn-s" data-dismiss="modal">예</button>
+					<button class="btn2 block btn-s" data-dismiss="modal">취소</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal" id="modalAlert">
+		<div class="modal-dialog" style="max-width:800px">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5>알림</h5>
+					<!--<button class="close" data-dismiss="modal"></button>-->
+				</div>
+				<div class="modal-body">
+					<div class="txt1 text-center">전송 완료</div>
+				</div>
+				<div class="modal-footer">
+					<button class="btn1 block" data-dismiss="modal">완료</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+		
+		
+	
+	<script>
+		
+	$('.btnSample').click(function(){
+		$('#modalAlert').modal();
+	})
+		
+		
+	$('#modalPin').modal();
+		
+	$('#BtnLangChoice').click(function(){
+		$('.layer-lang').fadeIn(300);
+	})
+	$('.layer-lang .close').click(function(){
+		$('.layer-lang').fadeOut(300);
+	})
+	</script>
+	
+	
+
+</body>
+</html>

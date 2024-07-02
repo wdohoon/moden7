@@ -1,0 +1,146 @@
+<!doctype html>
+<html> 
+<head>
+<meta charset="utf-8">
+<title>OIKONOMIA</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="css/front.css">
+<script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="js/plugin/jquery-ui.min.js"></script>
+<script type="text/javascript" src="js/front.js"></script>
+
+</head>
+<body>
+	
+	
+	<div class="main">
+		<div class="head">
+			<h1><img src="img/common/main_logo.svg" alt="OIKONOMIA WALLET"></h1>
+			<div>
+				<a href="#"><img src="img/common/ico_main_me.svg"></a>
+			</div>
+		</div>
+		<div class="inner">
+			<div class="my">
+				<div class="name-box">
+					<div class="name">OIK***님의 총 자산 <a href="#"><img src="img/common/ico_refresh.svg"></a></div>
+					<div class="btns"><a href="#">자산가리기</a></div>
+				</div>
+				<div class="value">
+					<strong>999,999,999</strong>
+					<small>USD</small>
+				</div>
+				<div class="send-rcv">
+					<a href="#">보내기</a>
+					<a href="#">받기</a>
+				</div>
+			</div>
+			
+			<div class="main-btns">
+				<a href="#">
+					<i><img src="img/common/ico_home_btn1.svg"></i>
+					<p>내 지갑</p>
+				</a>
+				<a href="#">
+					<i><img src="img/common/ico_home_btn2.svg"></i>
+					<p>채굴</p>
+				</a>
+				<a href="#">
+					<i><img src="img/common/ico_home_btn3.svg"></i>
+					<p>네트워크</p>
+				</a>
+			</div>
+			<div class="latest">
+				<h3>공지사항 <img src="img/common/ico_home_news.svg"></h3>				
+				<ul>
+					<li><a href="#">오이코노미아 공식 서비스 오픈</a></li>
+					<li><a href="#">오이코노미아 공식 서비스 오픈</a></li>
+				</ul>
+			</div>
+			
+			<div class="banner">
+				<div class="swiper-container">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide"><a href="#"><img src="img/common/banner.jpg"></a></div>
+						<div class="swiper-slide"><a href="#"><img src="img/common/banner.jpg"></a></div>
+						<div class="swiper-slide"><a href="#"><img src="img/common/banner.jpg"></a></div>
+						<div class="swiper-slide"><a href="#"><img src="img/common/banner.jpg"></a></div>
+					</div>
+				</div>
+				<div class="swiper-pagination"></div>
+			</div>
+			<div class="bn-box">
+				<a href="#"><img src="img/common/bn1.png"><p><strong>미션펀딩</strong></p></a>
+				<a href="#"><img src="img/common/bn2.png"><p><strong>쿠폰몰</strong></p></a>
+			</div>
+		</div>
+	</div>
+	
+	
+	<div class="modal" id="modalPin">
+		<div class="modal-dialog" style="max-width:800px">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5>알림</h5>
+					<button class="close" data-dismiss="modal"></button>
+				</div>
+				<div class="modal-body">
+					<div class="modal-pin">
+						<div class="t1">핀 번호 등록</div>
+						<div class="t2">* (필수) 원활한 거래를 핀번호 4자리를 등록해 주세요.</div>
+						<div class="t3">핀 번호</div>
+						<div class="mb10"><input type="text" class="inp small" style="width:100%" placeholder="4자리 핀번호를 입력해 주세요."></div>
+						<div class="t3">핀 번호</div>
+						<div class=""><input type="text" class="inp small" style="width:100%" placeholder="4자리 핀번호를 입력해 주세요."></div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button class="btn1 block f15" data-dismiss="modal">완료</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	
+	<script>
+	$('#modalPin').modal();
+		
+	$('.box1 .select').change(function(){
+		$('#Kind').text($(this).val());
+		$('#Kind').addClass('active');
+	});
+	
+	// 배너 슬라이더
+	var swiper = new Swiper(".banner .swiper-container", {
+		autoplay: {
+			delay: 3000,
+			disableOnInteraction: false,
+			},
+		pagination: {
+		el: ".banner .swiper-pagination",
+			clickable: true,
+		}
+	});
+	</script>
+	
+	
+	
+	
+	<div class="navgation">
+		<nav>
+			<a href="#" class="m1">홈</a>
+			<a href="#" class="m2">경륜</a>
+			<a href="#" class="m3">내 지갑</a>
+			<a href="#" class="m4">채굴</a>
+			<a href="#" class="m5">설정</a>
+		</nav>
+	</div>
+	
+	
+	
+	
+	
+</body>
+</html>

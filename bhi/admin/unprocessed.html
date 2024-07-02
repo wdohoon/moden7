@@ -1,0 +1,322 @@
+
+<?php
+include '../inc_head.php';
+include_once	"../lib/db.class.php";
+
+if ( !$jb_login )
+	header('Location: ../login.html');
+
+$DB_LP = new DBCLASS;
+
+?>
+
+
+<!--
+=========================================================
+* Paper Dashboard 2 - v2.0.1
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/paper-dashboard-2
+* Copyright 2020 Creative Tim (https://www.creative-tim.com)
+
+Coded by www.creative-tim.com
+
+ =========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="./assets/img/favicon.png">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>
+    BIT-DEX Admin Dashboard
+  </title>
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+  <!-- CSS Files -->
+  <link href="./assets/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="./assets/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
+  <!-- CSS Just for demo purpose, don't include it in your project -->
+  <link href="./assets/demo/demo.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+
+</head>
+
+<body class="">
+  <div class="wrapper ">
+    <div class="sidebar" data-color="white" data-active-color="danger">
+      <div class="logo">
+        <a href="#" class="simple-text logo-mini">
+          <div class="logo-image-small">
+
+          </div>
+          <!-- <p>CT</p> -->
+        </a>
+        <a href="#" class="simple-text logo-normal">
+          BIT-DEX Admin
+          <!-- <div class="logo-image-big">
+            <img src="./assets/img/logo-big.png">
+          </div> -->
+        </a>
+      </div>
+      <div class="sidebar-wrapper">
+         <ul class="nav">
+            <li >
+            <a href="./dashboard.html">
+              <i class="nc-icon nc-bank"></i>
+              <p>DashBoard</p>
+            </a>
+          </li>
+          <li>
+            <a href="./buylog.html">
+              <i class="nc-icon nc-tile-56"></i>
+              <p>구매 내역</p>
+            </a>
+          </li>
+          <li>
+            <a href="./buylog2.html">
+			   <i class="nc-icon nc-bell-55"></i>
+              <p>지갑전송내역(환전)</p>
+            </a>
+          </li>
+          <li>
+            <a href="./selllog.html">
+              <i class="nc-icon nc-diamond"></i>
+              <p>판매 내역</p>
+            </a>
+          </li>
+          <li>
+            <a href="./agency.html">
+              <i class="nc-icon nc-pin-3"></i>
+              <p>파트너 관리</p>
+            </a>
+          </li>
+          <li>
+            <a href="./buyer.html">
+              <i class="nc-icon nc-single-02"></i>
+              <p>회원 관리</p>
+            </a>
+          </li>
+          <li>
+            <a href="./coin.html">
+              <i class="nc-icon nc-spaceship"></i>
+              <p>정산</p>
+            </a>
+          </li>
+          <li class="active">
+            <a href="./unprocessed.html" >
+              <i class="nc-icon nc-bank"></i>
+              <p>미처리 내역</p>
+            </a>
+          </li>
+          <li>
+            <a href="./fee_config.html" onclick = "window.open(this.href, '_blank', 'width=400, height=800, left=100, top=50'); return false">
+              <i class="nc-icon nc-bank"></i>
+              <p>수수료 설정</p>
+            </a>
+          </li>
+          <li>
+            <a href="./login.html">
+              <i class="nc-icon nc-app"></i>
+              <p>로그아웃</p>
+            </a>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+    <div class="main-panel">
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
+        <div class="container-fluid">
+          <div class="navbar-wrapper">
+            <div class="navbar-toggle">
+              <button type="button" class="navbar-toggler">
+                <span class="navbar-toggler-bar bar1"></span>
+                <span class="navbar-toggler-bar bar2"></span>
+                <span class="navbar-toggler-bar bar3"></span>
+              </button>
+            </div>
+            <a class="navbar-brand" href="javascript:;"></a>
+          </div>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-end" id="navigation">
+            <form>
+              <div class="input-group no-border">
+                <input type="text" value="" class="form-control" placeholder="Search...">
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <i class="nc-icon nc-zoom-split"></i>
+                  </div>
+                </div>
+              </div>
+            </form>
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link btn-magnify" href="javascript:;">
+                  <i class="nc-icon nc-layout-11"></i>
+                  <p>
+                    <span class="d-lg-none d-md-block">Stats</span>
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item btn-rotate dropdown">
+                <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="nc-icon nc-bell-55"></i>
+                  <p>
+                    <span class="d-lg-none d-md-block">Some Actions</span>
+                  </p>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="dropdown-item" href="#">Action</a>
+                  <a class="dropdown-item" href="#">Another action</a>
+                  <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link btn-rotate" href="javascript:;">
+                  <i class="nc-icon nc-settings-gear-65"></i>
+                  <p>
+                    <span class="d-lg-none d-md-block">Account</span>
+                  </p>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <!-- End Navbar -->
+
+      <!-- End Navbar -->
+      <div class="content">
+        <div class="row">
+          <div class="col-md-12">
+          <div style="color: red;">※12시간 이내 입금확인 미응답 처리건이 표시됩니다. 코인지급처리시 PG사 내역과 정확히 비교후 처리 바랍니다.<br/><br/></div>
+            <div class="card">
+              <div class="card-body">
+                <div class="table-responsive">
+				<table class="table">
+                    <thead class=" text-primary">
+					<tr align = "center">
+                      <th>
+                        번호
+                      </th>
+                      <th>
+                        등록일시
+                      </th>
+                      <th>
+                        아이디
+                      </th>
+                      <th>
+                        코인수량
+                      </th>
+                      <th>
+                        처리
+                      </th>
+                      <th>
+                        삭제
+                      </th>
+
+					</tr>
+                    </thead>
+
+
+					<?php 
+
+					?>
+					<?php
+
+          $qry = "SELECT * FROM `deposit_log` WHERE checked=0 AND amt >  0 AND regdate > DATE_SUB(now(), INTERVAL 12 HOUR) ORDER BY idx DESC;";
+          $DB_LP->select($qry);
+
+          while($row = $DB_LP->get_data())
+          {
+					?>
+                   <tbody>
+                      <tr align = "center">
+                        <td>
+								<?php echo $row->idx; ?>
+                        </td>
+                        <td>
+								<?php echo $row->regdate;?>
+                        </td>
+
+                        <td>
+								<?php echo $row->email; ?>
+                        </td>
+                        <td>
+								<?php echo $row->amt; ?>
+                        </td>
+
+                        <td>
+                            <button onClick="location.href='unprocessed_action.html?idx=<?php echo $row->idx; ?>';"> 코인 지급 처리 </button>
+                        </td>
+                        <td>
+                            <button onClick="location.href='unprocessed_action.html?del=1&idx=<?php echo $row->idx; ?>';"> 삭제 </button>
+                        </td>
+                      </tr>
+                    </tbody>
+
+					<?php
+					}
+
+          $DB_LP->close();
+
+					?>
+
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+		</div>
+
+      <footer class="footer footer-black  footer-white ">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="credits ml-auto">
+              <span class="copyright">
+                © <script>
+                  document.write(new Date().getFullYear())
+                </script>, made with <i class="fa fa-heart heart"></i> by BIT-DEX
+              </span>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+  <!--   Core JS Files   -->
+  <script src="./assets/js/core/jquery.min.js"></script>
+  <script src="./assets/js/core/popper.min.js"></script>
+  <script src="./assets/js/core/bootstrap.min.js"></script>
+  <script src="./assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <!--  Google Maps Plugin    -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+  <!-- Chart JS -->
+  <script src="./assets/js/plugins/chartjs.min.js"></script>
+  <!--  Notifications Plugin    -->
+  <script src="./assets/js/plugins/bootstrap-notify.js"></script>
+  <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="./assets/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script><!-- Paper Dashboard DEMO methods, don't include it in your project! -->
+  <script src="./assets/demo/demo.js"></script>
+  <script>
+    $(document).ready(function() {
+      // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
+      demo.initChartsPages();
+    });
+  </script>
+</body>
+
+</html>

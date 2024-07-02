@@ -1,0 +1,126 @@
+<!doctype html>
+<html> 
+<head>
+<meta charset="utf-8">
+<title>OIKONOMIA</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="css/front.css">
+<script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="js/plugin/jquery-ui.min.js"></script>
+<script type="text/javascript" src="js/front.js"></script>
+
+</head>
+<body>
+	
+	<header>
+		<div class="left">
+			<a href="#" class="prev"></a>
+		</div>
+		<h2>회원가입</h2>
+	</header>
+	
+	<div class="register">
+		<div class="inner">
+			<div class="tit">성명 (실명을 입력해 주세요.)</div>
+			<div class="col3">
+				<div class="col"><input type="text" class="inp danger" placeholder="성"></div>
+				<div class="col"><input type="text" class="inp" placeholder="미들(선택)"></div>
+				<div class="col"><input type="text" class="inp" placeholder="이름"></div>
+			</div>
+			
+			<div class="nowrap mb15">
+				<div class="tit">성별</div>
+				<div class="labels">
+					<label><input type="radio" class="txt-radio" name="ra1" checked><span>남</span></label>
+					<label><input type="radio" class="txt-radio" name="ra1"><span>여</span></label>
+				</div>
+			</div>
+			
+			<div class="tit">생년월일</div>
+			<div class="col3">
+				<div class="col"><input type="text" class="inp" placeholder="연(예:1970)"></div>
+				<div class="col"><input type="text" class="inp" placeholder="월(예:01)"></div>
+				<div class="col"><input type="text" class="inp" placeholder="일(예:05)"></div>
+			</div>
+			
+			<div class="tit">비밀번호</div>
+			<div class="mb15"><input type="password" class="inp block" placeholder="비밀번호 4~32 자"></div>
+			
+			<div class="tit">비밀번호 확인</div>
+			<div class="mb15"><input type="password" class="inp block" placeholder="비밀번호 4~32 자"></div>
+			
+			<div class="tit">이메일주소</div>
+			<div class="email mb5">
+				<input type="text" class="inp block" placeholder="">
+				<span>@</span>
+				<select class="select">
+					<option>직접입력</option>
+					<option>naver.com</option>
+					<option>gmail.com</option>
+					<option>daum.net</option>
+					<option>naver.com</option>
+				</select>
+				<button class="btn1 f12">인증번호전송</button>
+			</div>
+			<!-- [개발] 직접입력 선택시 span 과 select 삭제할것 -->
+			
+			<div class="f11 gray mb10">*본인확인 절차이며, 다른 용도로 사용되지 않습니다.</div>
+			
+			<div class="inp-box type2">
+				<input type="tel" class="inp1" value="1234">
+				<span>04:48</span>
+				<button class="btn1 f12">인증하기</button>
+			</div>
+			
+			<div class="tit">초대코드 (선택)</div>
+			<div class="mb15">
+				<div class="inp-box1">
+					<input type="text" class="inp block" placeholder="">
+					<button class="btn-qr"></button>
+				</div>
+			</div>
+			
+			
+			<div class="agree">
+				<div><label><input type="checkbox" class="checkbox"><p><em></em><span>이용약관에 동의합니다.</span></p></label> <a href="#" data-toggle="modal" data-target="#modalTerms">[Detail]</a></div>
+				<div><label><input type="checkbox" class="checkbox"><p><em></em><span>개인정보 수집동의 약관에 동의합니다.</span></p></label> <a href="#" data-toggle="modal" data-target="#modalPrv">[Detail]</a></div>
+			</div>
+			
+			
+			<div class="mb20"><button class="btn1 block">완료</button></div>
+			<div class="have">이미 회원이십니까? <a href="#">로그인</a></div>
+		</div>
+	</div>
+	
+	
+	<div class="modal" id="modalTerms">
+		<div class="modal-dialog" style="max-width:800px">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5>이용약관</h5>
+					<button class="close" data-dismiss="modal"></button>
+				</div>
+				<div class="modal-body">
+					<div class="terms">이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 이용약관 </div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal" id="modalPrv">
+		<div class="modal-dialog" style="max-width:800px">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5>개인정보 수집동의 약관</h5>
+					<button class="close" data-dismiss="modal"></button>
+				</div>
+				<div class="modal-body">
+					<div class="terms">개인정보 수집동의 약관 </div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</body>
+</html>
